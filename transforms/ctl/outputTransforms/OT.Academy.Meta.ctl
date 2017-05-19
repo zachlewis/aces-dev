@@ -35,7 +35,7 @@ void main
 {
     // NOTE: This is a bit of a hack - probably a more direct way to do this.
     TsParams PARAMS_DEFAULT = init_TsParams( minLum, maxLum);
-    float expShift = log10( inv_ssts( midLum, PARAMS_DEFAULT))-log10(0.18);
+    float expShift = log2(inv_ssts( midLum, PARAMS_DEFAULT))-log2(0.18);
 
     TsParams PARAMS = init_TsParams( minLum, maxLum, expShift);
  

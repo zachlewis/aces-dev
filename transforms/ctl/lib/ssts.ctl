@@ -107,7 +107,7 @@ float[5] init_coefsHigh(
 
 float shift( float in, float expShift)
 {
-    return pow10( log10(in)-expShift);
+    return pow(2.,(log2(in)-expShift));
 }
 
 
@@ -117,36 +117,15 @@ TsParams init_TsParams(
     float expShift = 0
 )
 {
-
-    TsPoint MIN_PT = { shift(lookup_ACESmin(minLum),expShift), minLum, 0.0};
-    TsPoint MID_PT = { shift(0.18,expShift), 4.8, 1.5};
-    TsPoint MAX_PT = { shift(lookup_ACESmax(maxLum),expShift), maxLum, 0.0};
+    TsPoint MIN_PT = { lookup_ACESmin(minLum), minLum, 0.0};
+    TsPoint MID_PT = { 0.18, 4.8, 1.5};
+    TsPoint MAX_PT = { lookup_ACESmax(maxLum), maxLum, 0.0};
     float cLow[5] = init_coefsLow( MIN_PT, MID_PT);
     float cHigh[5] = init_coefsHigh( MID_PT, MAX_PT);
-    
-//     print( "MIN_PT: {", MIN_PT.x, ", ", MIN_PT.y, ", ", MIN_PT.slope, "}\n");
-//     print( "MID_PT: {", MID_PT.x, ", ", MID_PT.y, ", ", MID_PT.slope, "}\n");
-//     print( "MAX_PT: {", MAX_PT.x, ", ", MAX_PT.y, ", ", MAX_PT.slope, "}\n");
-//     print( "COEFS_LOW: ", cLow[0], "\n"); 
-//     print( "           ", cLow[1], "\n"); 
-//     print( "           ", cLow[2], "\n"); 
-//     print( "           ", cLow[3], "\n"); 
-//     print( "           ", cLow[4], "\n"); 
-//     print( "           ", cLow[5], "\n"); 
-//     print( "COEFS_HIG: ", cHigh[0], "\n"); 
-//     print( "           ", cHigh[1], "\n"); 
-//     print( "           ", cHigh[2], "\n"); 
-//     print( "           ", cHigh[3], "\n"); 
-//     print( "           ", cHigh[4], "\n"); 
-//     print( "           ", cHigh[5], "\n"); 
+    MIN_PT.x = shift(lookup_ACESmin(minLum),expShift);
+    MID_PT.x = shift(0.18,expShift);
+    MAX_PT.x = shift(lookup_ACESmax(maxLum),expShift);
 
-//     TsParams P = {
-//         MIN_PT,
-//         MID_PT,
-//         MAX_PT,
-//         cLow,
-//         cHigh,
-//     };
     TsParams P = {
         {MIN_PT.x, MIN_PT.y, MIN_PT.slope},
         {MID_PT.x, MID_PT.y, MID_PT.slope},
