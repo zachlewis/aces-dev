@@ -241,7 +241,7 @@ float inv_ssts
 
     logx = log10(C.Min.x);
 
-  } else if ( (logy > log10(C.Min.y)) && (logy <= log10(C.Mid.y)) ) {
+  } else if ( (logy > log10(C.Min.y)) && (logy < log10(C.Mid.y)) ) {
 
     unsigned int j;
     float cf[ 3];
@@ -266,7 +266,7 @@ float inv_ssts
 
     logx = log10(C.Min.x) + ( t + j) * KNOT_INC_LOW;
 
-  } else if ( (logy > log10(C.Mid.y)) && (logy < log10(C.Max.y)) ) {
+  } else if ( (logy >= log10(C.Mid.y)) && (logy < log10(C.Max.y)) ) {
 
     unsigned int j;
     float cf[ 3];
