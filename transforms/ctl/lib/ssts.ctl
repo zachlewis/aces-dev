@@ -279,3 +279,33 @@ float inv_ssts
   return pow10( logx);
 
 }
+
+
+float[3] ssts_f3
+( 
+    varying float x[3],
+    varying TsParams C
+)
+{
+    float out[3];
+    out[0] = ssts( x[0], C);
+    out[1] = ssts( x[1], C);
+    out[2] = ssts( x[2], C);
+
+    return out;
+}
+
+
+float[3] inv_ssts_f3
+( 
+    varying float x[3],
+    varying TsParams C
+)
+{
+    float out[3];
+    out[0] = inv_ssts( x[0], C);
+    out[1] = inv_ssts( x[1], C);
+    out[2] = inv_ssts( x[2], C);
+
+    return out;
+}
