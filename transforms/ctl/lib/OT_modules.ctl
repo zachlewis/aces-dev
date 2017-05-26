@@ -16,14 +16,33 @@ struct OutputParameters
 };
 
 
+float[3] limit_to_primaries
+( 
+    float XYZ[3], 
+    Chromaticities PRI
+)
+{
+    const float XYZ_2_LIMITING_PRI_MAT[4][4] = XYZtoRGB( PRI, 1.0);
+    const float LIMITING_PRI_2_XYZ_MAT[4][4] = RGBtoXYZ( PRI, 1.0);
+
+    // XYZ to mastering primaries (i.e. the primaries to limit to)
+    float limitRGB[3] = mult_f3_f44( XYZ, XYZ_2_LIMITING_PRI_MAT);
+
+    // Clip any values outside the mastering primaries
+    limitRGB = clamp_f3( limitRGB, 0., 1.);
+    
+    // Convert back to XYZ
+    return mult_f3_f44( limitRGB, LIMITING_PRI_2_XYZ_MAT);
+}
+
+
+
 float[3] outputTransform
 (
     float in[3],
     OutputParameters OT_PARAMS
 )
 {
-    float XYZ_2_LIMITING_PRI_MAT[4][4] = XYZtoRGB( OT_PARAMS.limiting_primaries, 1.0);
-    float LIMITING_PRI_2_XYZ_MAT[4][4] = RGBtoXYZ( OT_PARAMS.limiting_primaries, 1.0);
     float XYZ_2_DISPLAY_PRI_MAT[4][4] = XYZtoRGB( OT_PARAMS.encoding_primaries, 1.0);
 
     // NOTE: This is a bit of a hack - probably a more direct way to do this.
@@ -88,16 +107,9 @@ float[3] outputTransform
             XYZ = mult_f3_f33( XYZ, D60_2_D65_CAT);
         }
     }
-    
-    // CIE XYZ to mastering primaries
-    float limitRGB[3] = mult_f3_f44( XYZ, XYZ_2_LIMITING_PRI_MAT);
 
-    // Clip values < 0 (i.e. projecting outside the mastering primaries)
-    limitRGB = clamp_f3( limitRGB, 0., 1.);
-
-    // Convert mastering primaries encoding to display primaries encoding
-    // Mastering space RGB to XYZ
-    XYZ = mult_f3_f44( limitRGB, LIMITING_PRI_2_XYZ_MAT);
+    // Limit gamut to mastering primaries
+    XYZ = limit_to_primaries( XYZ, OT_PARAMS.limiting_primaries); 
 
     // CIE XYZ to encoding primaries
     linearCV = mult_f3_f44( XYZ, XYZ_2_DISPLAY_PRI_MAT);
