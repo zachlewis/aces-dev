@@ -129,3 +129,33 @@ float uncenter_hue( float hueCentered, float centerH)
   else if (hue > 360.) hue = hue - 360.;
   return hue;
 }
+
+
+
+float[3] rrt_sweeteners( float in[3])
+{
+    float aces[3] = in;
+    
+    // --- Glow module --- //
+    float saturation = rgb_2_saturation( aces);
+    float ycIn = rgb_2_yc( aces);
+    float s = sigmoid_shaper( (saturation - 0.4) / 0.2);
+    float addedGlow = 1. + glow_fwd( ycIn, RRT_GLOW_GAIN * s, RRT_GLOW_MID);
+
+    aces = mult_f_f3( addedGlow, aces);
+
+    // --- Red modifier --- //
+    float hue = rgb_2_hue( aces);
+    float centeredHue = center_hue( hue, RRT_RED_HUE);
+    float hueWeight = cubic_basis_shaper( centeredHue, RRT_RED_WIDTH);
+
+    aces[0] = aces[0] + hueWeight * saturation * (RRT_RED_PIVOT - aces[0]) * (1. - RRT_RED_SCALE);
+
+    // --- ACES to RGB rendering space --- //
+    aces = clamp_f3( aces, 0., HALF_POS_INF);
+    float rgbPre[3] = mult_f3_f44( aces, AP0_2_AP1_MAT);
+
+    // --- Global desaturation --- //
+    rgbPre = mult_f3_f33( rgbPre, RRT_SAT_MAT);
+    return rgbPre;
+}
