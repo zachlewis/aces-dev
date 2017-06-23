@@ -6,6 +6,12 @@ const float M[ 3][ 3] = {
 };
 
 
+const float MIN_STOP_1 = -16.;
+const float MIN_STOP_2 = -6.5;
+const float MAX_STOP_1 = 6.5;
+const float MAX_STOP_2 = log2(65504.)-log2(0.18);
+
+
 // TODO: Move all "magic numbers" (i.e. values in interpolation tables, etc.) to top 
 // and define as constants
 
@@ -27,16 +33,16 @@ struct TsParams
 
 float lookup_ACESmin( float minLum )
 {
-    const float minTable[2][2] = { { log10(0.0001) , -16.  }, 
-                                   { log10(0.02)   ,  -6.5 } };
+    const float minTable[2][2] = { { log10(0.0001) , MIN_STOP_1 }, 
+                                   { log10(0.02)   , MIN_STOP_2 } };
 
     return 0.18*pow( 2., interpolate1D( minTable, log10( minLum)));
 }
 
 float lookup_ACESmax( float maxLum )
 {
-    const float maxTable[2][2] = { { log10(48.)    , 6.5  }, 
-                                   { log10(10000.) , log2(65504.)-log2(0.18) } };
+    const float maxTable[2][2] = { { log10(48.)    , MAX_STOP_1 }, 
+                                   { log10(10000.) , MAX_STOP_2 } };
 
     return 0.18*pow( 2., interpolate1D( maxTable, log10( maxLum)));
 }
@@ -68,7 +74,9 @@ float[5] init_coefsLow(
                              {-6.5, 0.35} };
     float pctLow = interpolate1D( bendsLow, log2(TsPointLow.x/0.18));
     coefsLow[2] = log10(TsPointLow.y) + pctLow*(log10(TsPointMid.y)-log10(TsPointLow.y));
-    
+
+//     print("\npctLow: ", pctLow, "\n");
+        
     return coefsLow;
 } 
 
@@ -100,9 +108,68 @@ float[5] init_coefsHigh(
     float pctHigh = interpolate1D( bendsHigh, log2(TsPointMax.x/0.18));
     coefsHigh[2] = log10(TsPointMid.y) + pctHigh*(log10(TsPointMax.y)-log10(TsPointMid.y));
     
+//     print("\npctHigh: ", pctHigh, "\n");
+    
     return coefsHigh;
 }
 
+
+float[5] init_coefsLow_wPct(
+    TsPoint TsPointLow,
+    TsPoint TsPointMid,
+    float pctLow
+)
+{
+    float coefsLow[5];
+
+    float knotIncLow = (log10(TsPointMid.x) - log10(TsPointLow.x)) / 3.;
+    // float halfKnotInc = (log10(TsPointMid.x) - log10(TsPointLow.x)) / 6.;
+
+    // Determine two lowest coefficients (straddling minPt)
+    coefsLow[0] = (TsPointLow.slope * (log10(TsPointLow.x)-0.5*knotIncLow)) + ( log10(TsPointLow.y) - TsPointLow.slope * log10(TsPointLow.x));
+    coefsLow[1] = (TsPointLow.slope * (log10(TsPointLow.x)+0.5*knotIncLow)) + ( log10(TsPointLow.y) - TsPointLow.slope * log10(TsPointLow.x));
+    // NOTE: if slope=0, then the above becomes just 
+        // coefsLow[0] = log10(TsPointLow.y);
+        // coefsLow[1] = log10(TsPointLow.y);
+    // leaving it as a variable for now in case we decide we need non-zero slope extensions
+
+    // Determine two highest coefficients (straddling midPt)
+    coefsLow[3] = (TsPointMid.slope * (log10(TsPointMid.x)-0.5*knotIncLow)) + ( log10(TsPointMid.y) - TsPointMid.slope * log10(TsPointMid.x));
+    coefsLow[4] = (TsPointMid.slope * (log10(TsPointMid.x)+0.5*knotIncLow)) + ( log10(TsPointMid.y) - TsPointMid.slope * log10(TsPointMid.x));
+    
+    // Middle coefficient (which defines the "sharpness of the bend") is linearly interpolated
+    coefsLow[2] = log10(TsPointLow.y) + pctLow*(log10(TsPointMid.y)-log10(TsPointLow.y));
+    
+    return coefsLow;
+} 
+
+float[5] init_coefsHigh_wPct( 
+    TsPoint TsPointMid, 
+    TsPoint TsPointMax,
+    float pctHigh
+)
+{
+    float coefsHigh[5];
+
+    float knotIncHigh = (log10(TsPointMax.x) - log10(TsPointMid.x)) / 3.;
+    // float halfKnotInc = (log10(TsPointMax.x) - log10(TsPointMid.x)) / 6.;
+
+    // Determine two lowest coefficients (straddling midPt)
+    coefsHigh[0] = (TsPointMid.slope * (log10(TsPointMid.x)-0.5*knotIncHigh)) + ( log10(TsPointMid.y) - TsPointMid.slope * log10(TsPointMid.x));
+    coefsHigh[1] = (TsPointMid.slope * (log10(TsPointMid.x)+0.5*knotIncHigh)) + ( log10(TsPointMid.y) - TsPointMid.slope * log10(TsPointMid.x));
+
+    // Determine two highest coefficients (straddling maxPt)
+    coefsHigh[3] = (TsPointMax.slope * (log10(TsPointMax.x)-0.5*knotIncHigh)) + ( log10(TsPointMax.y) - TsPointMax.slope * log10(TsPointMax.x));
+    coefsHigh[4] = (TsPointMax.slope * (log10(TsPointMax.x)+0.5*knotIncHigh)) + ( log10(TsPointMax.y) - TsPointMax.slope * log10(TsPointMax.x));
+    // NOTE: if slope=0, then the above becomes just
+        // coefsHigh[0] = log10(TsPointHigh.y);
+        // coefsHigh[1] = log10(TsPointHigh.y);
+    // leaving it as a variable for now in case we decide we need non-zero slope extensions
+    
+    coefsHigh[2] = log10(TsPointMid.y) + pctHigh*(log10(TsPointMax.y)-log10(TsPointMid.y));
+    
+    return coefsHigh;
+}
 
 
 float shift( float in, float expShift)
@@ -137,6 +204,34 @@ TsParams init_TsParams(
     return P;
 }
 
+
+TsParams init_TsParams_wPct(
+    float minLum,
+    float maxLum,
+    float pctLow,
+    float pctHigh,
+    float expShift = 0
+)
+{
+    TsPoint MIN_PT = { lookup_ACESmin(minLum), minLum, 0.0};
+    TsPoint MID_PT = { 0.18, 4.8, 1.5};
+    TsPoint MAX_PT = { lookup_ACESmax(maxLum), maxLum, 0.0};
+    float cLow[5] = init_coefsLow_wPct( MIN_PT, MID_PT, pctLow);
+    float cHigh[5] = init_coefsHigh_wPct( MID_PT, MAX_PT, pctHigh);
+    MIN_PT.x = shift(lookup_ACESmin(minLum),expShift);
+    MID_PT.x = shift(0.18,expShift);
+    MAX_PT.x = shift(lookup_ACESmax(maxLum),expShift);
+
+    TsParams P = {
+        {MIN_PT.x, MIN_PT.y, MIN_PT.slope},
+        {MID_PT.x, MID_PT.y, MID_PT.slope},
+        {MAX_PT.x, MAX_PT.y, MAX_PT.slope},
+        {cLow[0], cLow[1], cLow[2], cLow[3], cLow[4], cLow[4]},
+        {cHigh[0], cHigh[1], cHigh[2], cHigh[3], cHigh[4], cHigh[4]}
+    };
+         
+    return P;
+}
 
 float ssts
 ( 
@@ -249,14 +344,14 @@ float inv_ssts
 
     unsigned int j;
     float cf[ 3];
-    if ( logy > KNOT_Y_HIGH[ 0] && logy <= KNOT_Y_HIGH[ 1]) {
+    if ( logy >= KNOT_Y_HIGH[ 0] && logy <= KNOT_Y_HIGH[ 1]) {
         cf[ 0] = C.coefsHigh[0];  cf[ 1] = C.coefsHigh[1];  cf[ 2] = C.coefsHigh[2];  j = 0;
     } else if ( logy > KNOT_Y_HIGH[ 1] && logy <= KNOT_Y_HIGH[ 2]) {
         cf[ 0] = C.coefsHigh[1];  cf[ 1] = C.coefsHigh[2];  cf[ 2] = C.coefsHigh[3];  j = 1;
     } else if ( logy > KNOT_Y_HIGH[ 2] && logy <= KNOT_Y_HIGH[ 3]) {
         cf[ 0] = C.coefsHigh[2];  cf[ 1] = C.coefsHigh[3];  cf[ 2] = C.coefsHigh[4];  j = 2;
     } 
-    
+
     const float tmp[ 3] = mult_f3_f33( cf, M);
 
     float a = tmp[ 0];
@@ -275,7 +370,7 @@ float inv_ssts
     logx = log10(C.Max.x);
 
   }
-  
+
   return pow10( logx);
 
 }
