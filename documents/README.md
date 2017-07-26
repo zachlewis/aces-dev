@@ -2,7 +2,7 @@
 
 The links below point to the current versions of the ACES technical documentation. 
 
-Git is used to version control the LaTeX source for the documents, which is hosted here on Github. Thus, any updates to the documents will be visible through git commits. The PDFs generated from the most up-to-date LaTeX source are linked to below and from the ACES website.
+Git is used to version control the LaTeX source for the documents, which is hosted here on GitHub. Thus, any updates to the documents will be visible through git commits. The PDFs generated from the most up-to-date LaTeX source are linked to below and from the ACES website.
 
 These documents may be updated updated frequently in order to incorporate developer feedback, so please check the [ACES Documentation Manifest](http://j.mp/docsmanifest) to ensure you have the latest versions before finalizing your ACES implementation.
 
@@ -32,6 +32,8 @@ _**Encodings and Metrics**_
 	* [S-2013-001](http://j.mp/S-2013-001) ACESproxy — An Integer Log Encoding of ACES Image Data
 * ACEScc
 	* [S-2014-003](http://j.mp/S-2014-003) ACEScc — A Logarithmic Encoding of ACES Data for use within Color Grading Systems
+* ACEScct
+	* [S-2016-001](http://j.mp/S-2016-001) ACEScct — A Quasi-Logarithmic Encoding of ACES Data for use within Color Grading Systems
 * ACEScg
 	* [S-2014-004](http://j.mp/S-2014-004) ACEScg — A Working Space for CGI Render and Compositing
 * APD
