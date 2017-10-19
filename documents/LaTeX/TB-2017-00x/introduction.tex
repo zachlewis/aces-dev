@@ -1,0 +1,29 @@
+% This file contains the content for the Introduction
+\unnumberedformat	    % Change formatting to that of "Introduction" section
+\chapter{Introduction} 	% Do not modify section title
+%% Modify below this line %%
+ACES 1.0 includes thirteen Output Transforms that can be broadly characterized as applying to four different display types used in various configurations. (Table \ref{odt-display-types-table}) The display types include digital cinema projectors typically used in digital intermediate, motion picture mastering, and theatrical exhibition, standard dynamic range (SDR) broadcast displays used in editorial and on-set preview applications, high dynamic range (HDR) broadcast displays used in mastering an exhibition of HDR content, and computer desktop monitors such as those typically used in the creation of computer generated visual effects (VFX).
+
+\begin{table}[ht!]
+\centering
+\begin{tabular}{cc}
+\textbf{Output Transform (Short Name)}                              & \textbf{Display Type}                               \\ \hline
+\multicolumn{1}{|l|}{ACES 1.0 Output - P3-DCI}                      & \multicolumn{1}{l|}{Digital Cinema Projector (SDR)} \\ \hline
+\multicolumn{1}{|l|}{ACES 1.0 Output - P3-D60}                      & \multicolumn{1}{l|}{Digital Cinema Projector (SDR)} \\ \hline
+\multicolumn{1}{|l|}{ACES 1.0 Output - DCDM}                        & \multicolumn{1}{l|}{Digital Cinema Projector (SDR)} \\ \hline
+\multicolumn{1}{|l|}{ACES 1.0 Output - DCDM (P3 gamut clip)}        & \multicolumn{1}{l|}{Digital Cinema Projector (SDR)} \\ \hline
+\multicolumn{1}{|l|}{ACES 1.0 Output - Rec.709}                     & \multicolumn{1}{l|}{SDR Broadcast Monitor}          \\ \hline
+\multicolumn{1}{|l|}{ACES 1.0 Output - Rec.709 (D60 sim.)}          & \multicolumn{1}{l|}{SDR Broadcast Monitor}          \\ \hline
+\multicolumn{1}{|l|}{ACES 1.0 Output - Rec.2020}                    & \multicolumn{1}{l|}{SDR Broadcast Monitor}          \\ \hline
+\multicolumn{1}{|l|}{ACES 1.0 Output - P3-D60 ST2084 (1000 nits)}   & \multicolumn{1}{l|}{HDR Broadcast Monitor}          \\ \hline
+\multicolumn{1}{|l|}{ACES 1.0 Output - P3-D60 ST2084 (2000 nits)}   & \multicolumn{1}{l|}{HDR Broadcast Monitor}          \\ \hline
+\multicolumn{1}{|l|}{ACES 1.0 Output - P3-D60 ST2084 (4000 nits)}   & \multicolumn{1}{l|}{HDR Broadcast Monitor}          \\ \hline
+\multicolumn{1}{|l|}{ACES 1.0 Output - Rec.2020 ST2084 (1000 nits)} & \multicolumn{1}{l|}{HDR Broadcast Monitor}          \\ \hline
+\multicolumn{1}{|l|}{ACES 1.0 Output - sRGB}                        & \multicolumn{1}{l|}{Desktop Computer Display}       \\ \hline
+\multicolumn{1}{|l|}{ACES 1.0 Output - sRGB (D60 sim.)}             & \multicolumn{1}{l|}{Desktop Computer Display}       \\ \hline
+\end{tabular}
+\caption{ACES 1.0 Output Transforms and Display Types}
+\label{odt-display-types-table}
+\end{table}
+
+The output device to be used with any particular device depends on the detailed configuration of that device.  This document is intended to be practical guide help end-users determine the proper ACES output transform to be used the configuration, workflow, and intended usage.  This document is intended to cover a series of common use cases.  There may be valid uses of the ACES output transforms that fall outside of the scope of this document.
