@@ -2,7 +2,8 @@
 \pagestyle{plain}
 \usepackage{graphicx}
 \usepackage{subcaption}
-\usepackage{seqsplit} 
+\usepackage{seqsplit}
+\usepackage{draftwatermark}
 
 % Set Document Details
 \doctype{tb} % spec, proc, tb (Specification, Procedure, Technical Bulletin)
@@ -16,6 +17,9 @@
 \summary{ The Academy Color Encoding System (ACES) includes a variety of Output Transforms intended to support a wide range of display devices.  These devices include standard dynamic range digital cinema projectors, broadcast monitors, computer desktop displays, and high dynamic range displays.  Each of these devices may be configured differently and requires an ACES output transforms be used based on the specifics of the configuration.  This document is intended to be practical guide help end-users determine the proper ACES output transform to be used based on their devices, configurations, and workflows.
 }
 
+% Sets the document "DRAFT" watermark
+\SetWatermarkLightness{0.95}
+\SetWatermarkScale{1}
 
 % Document Starts Here
 \begin{document}
