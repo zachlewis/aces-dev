@@ -3,12 +3,11 @@
 %% Modify below this line %%
 
 \clearpage
-\chapter{Output Transform Applications}\label{ch:ot-app}
+\chapter{Output Device Transform Details}\label{ch:odt-details}
+This section contains usage details and applications notes for each of the Output Device Transforms included in the ACES 1.0 release.  Each ODT is intended to be used with a particular display, configure in a particular manner, and viewed in a particular viewing environment.  If an ODT is used with a different display, display configuration, or viewing environment than those specified in this section, the resulting image may not appear as intended.
 
-
-%%%% Application -- Theatrical Digital Intermediate (P3-DCI Calibrated Projector) %%%% 
-\section{Theatrical Digital Intermediate (P3-DCI Calibrated Projector)}
-\label{sec:ot-app-p3dci}
+\section{ACES 1.0 Output - P3-DCI}
+\label{sec:odt-details-p3dci}
 
 \subsection{Summary}
 \label{subsec:summary-p3dci}
@@ -26,24 +25,8 @@ chromaticity x=0.3140 y=0.3510 on the screen. With the projector
 configured in this manner it is recommended that the ACES 1.0 ODT with
 the transformID \texttt{\seqsplit{ODT.Academy.P3DCI\_48nits.a1.0.3}} be used.
 
-\subsection{Projector Setup}
-\label{subsec:setup-p3dci}
-
-\begin{table}[ht!]
-    \centering
-        \begin{tabular}{|p{1.25in}|p{3in}|}
-            \hline
-            \textbf{Parameter} & \textbf{Setting} \\ \hline
-            PCF & DCI-P3 (RGB 4:4:4 Full Range, P3 Primaries, DCI white point, 48 nit max Luminance) \\ \hline
-            Viewing Environment & Dark \\ \hline
-            Bit Depth & 12-bit \\ \hline 
-    \end{tabular}
-    \caption[Theatrical DI (P3DCI) - Projector Setup]{\small P3-DCI Projector Setup} 
-    \label{tab:setup-p3dci}
-\end{table}
-
-\subsection{Best ODT for application} 
-\label{subsec:bestODT-p3dci}
+\subsection{ODT Identifiers} 
+\label{subsec:odt-ident-p3dci}
 
 \begin{table}[ht!]
     \centering
@@ -52,8 +35,28 @@ the transformID \texttt{\seqsplit{ODT.Academy.P3DCI\_48nits.a1.0.3}} be used.
         \textbf{Simple Name} & \textbf{TransformID} \\ \hline
         ACES 1.0 Output - P3-DCI & \texttt{\seqsplit{ODT.Academy.P3DCI\_48nits.a1.0.3}} \\ \hline
     \end{tabular}
-    \caption[Theatrical DI (P3DCI) - Best ODT ]{\small P3-DCI Best ODT} 
-    \label{tab:bestODT-p3dci}
+    \caption[ACES 1.0 Output - P3-DCI -- Identifiers]{\small ACES 1.0 Output - P3-DCI -- Identifiers} 
+    \label{tab:odt-ident-p3dci}
+\end{table}
+
+\subsection{Recommended Display and Setup}
+\label{subsec:setup-p3dci}
+
+
+\begin{table}[ht!]
+    \centering
+        \begin{tabular}{|p{1.5in}|p{3in}|}
+            \hline
+            \textbf{Parameter} & \textbf{Setting} \\ \hline
+            Display Type & Digital Cinema compliant projector \\ \hline
+            Display Dynamic Range & $\geq$ 2,000:1 to $\sim$10,000:1 \\ \hline
+            Display Max Luminance & 48 cd/m$^2$\\ \hline
+            PCF & DCI-P3 (RGB 4:4:4 Full Range, P3 Primaries, DCI white point) \\ \hline
+            Viewing Environment & Dark \\ \hline
+            Bit Depth & 12-bit \\ \hline 
+    \end{tabular}
+    \caption[ACES 1.0 Output - P3-DCI -- Display Setup]{\small ACES 1.0 Output - P3-DCI -- Display Setup} 
+    \label{tab:setup-p3dci}
 \end{table}
 
 \subsection{Notes}
@@ -85,8 +88,8 @@ slightly less than the maximum luminance produced by projector code
 values red = 1, green = 1, blue = 1 (e.g.~48 nits).
 
 When using the correct projector setup and corresponding ODT, the image
-on the projector screen will match nearly exactly in Application \ref{sec:ot-app-p3dci} and
-Application \ref{sec:ot-app-p3d60}.
+on the projector screen will match nearly exactly in Application \ref{sec:odt-details-p3dci} and
+Application \ref{sec:odt-details-p3d60}.
 
     \begin{figure*}[ht!]
         \centering
@@ -163,15 +166,14 @@ If the display RGB code values do not match those in the table when using the co
         \textbf{M}  & 0.58   & 0.2096 & 0.9086 & 0.808  & 0.2134 & 0.8294 & 0.333  & 0.1596 & 8.4349  \\ \hline
         \textbf{Y}  & 0.8237 & 0.9378 & 0.0855 & 0.8654 & 0.8096 & 0.2487 & 0.4338 & 0.5187 & 26.9923 \\ \hline
     \end{tabular}
-    \caption[Theatrical DI (P3DCI) - Test Values]{ \texttt{ODT.Academy.P3DCI\_48nits.a1.0.3} Test Values}
+    \caption[ACES 1.0 Output - P3-DCI -- Test Values]{\small ACES 1.0 Output - P3-DCI -- Test Values}
     \label{tab:testValues-p3dci}
 \end{table}
 
-
-%%%% Application -- Theatrical Digital Intermediate (P3-D60 Calibrated Projector) %%%% 
+%%%% ACES 1.0 Output - P3-D60 %%%% 
 \clearpage
-\section{Theatrical Digital Intermediate (P3-D60 Calibrated Projector)}
-\label{sec:ot-app-p3d60}
+\section{ACES 1.0 Output - P3-D60}
+\label{sec:odt-details-p3d60}
 
 \subsection{Summary}
 \label{subsec:summary-p3d60}
@@ -190,7 +192,22 @@ projector code values will produce the chromaticity x=0.32168 y=0.33767
 recommended that ACES ODT with the transformID
 \texttt{\seqsplit{ODT.Academy.P3D60\_48nits.a1.0.3}} be used.
 
-\subsection{Projector Setup}
+\subsection{ODT Identifiers} 
+\label{subsec:odt-ident-p3d60}
+
+\begin{table}[ht!]
+    \centering
+    \begin{tabular}{|p{1.5in}|p{3in}|}
+        \hline
+        \textbf{Simple Name} & \textbf{TransformID} \\ \hline
+        ACES 1.0 Output - P3-D60 & \texttt{\seqsplit{ODT.Academy.P3D60\_48nits.a1.0.3}} \\ \hline
+    \end{tabular}
+    \caption[ACES 1.0 Output - P3-D60 -- Identifiers]{\small ACES 1.0 Output - P3-D60 -- Identifiers} 
+    \label{tab:odt-ident-p3d60}
+\end{table}
+
+
+\subsection{Recommended Display and Setup}
 \label{subsec:setup-p3d60}
 
 \begin{table}[ht!]
@@ -202,22 +219,8 @@ recommended that ACES ODT with the transformID
             Viewing Environment & Dark \\ \hline
             Bit Depth & 12-bit \\ \hline 
     \end{tabular}
-    \caption[Theatrical DI (P3D60) - Projector Setup]{\small P3-D60 Projector Setup} 
+    \caption[ACES 1.0 Output - P3-D60 -- Display Setup]{\small ACES 1.0 Output - P3-D60 -- Display Setup} 
     \label{tab:setup-p3d60}
-\end{table}
-
-\subsection{Best ODT for application} 
-\label{subsec:bestODT-p3d60}
-
-\begin{table}[ht!]
-    \centering
-    \begin{tabular}{|p{1.5in}|p{3in}|}
-        \hline
-        \textbf{Simple Name} & \textbf{TransformID} \\ \hline
-        ACES 1.0 Output - P3-D60 & \texttt{\seqsplit{ODT.Academy.P3D60\_48nits.a1.0.3}} \\ \hline
-    \end{tabular}
-    \caption[Theatrical DI (P3D60) - Best ODT]{\small P3-D60 Best ODT} 
-    \label{tab:bestODT-p3d60}
 \end{table}
 
 \subsection{Notes}
@@ -248,8 +251,8 @@ projector code values are intended to produce a chromaticity x=0.32168
 y=0.33767 (aka D60) on the screen.
 
 When using the correct projector setup and corresponding ODT, the image
-on the projector screen will match nearly exactly in Application \ref{sec:ot-app-p3dci} and
-Application \ref{sec:ot-app-p3d60}.
+on the projector screen will match nearly exactly in Application \ref{sec:odt-details-p3dci} and
+Application \ref{sec:odt-details-p3d60}.
 
     \begin{figure*}[ht!]
         \centering
@@ -326,21 +329,102 @@ If the display RGB code values do not match those in the table when using the co
         \textbf{M}  & 0.58   & 0.2096 & 0.9086 & 0.7819 & 0.2206 & 0.8243 & 0.3325 & 0.1593 & 8.7918  \\ \hline
         \textbf{Y}  & 0.8237 & 0.9378 & 0.0855 & 0.8392 & 0.8399 & 0.2459 & 0.4336 & 0.5192 & 28.3358 \\ \hline
         \end{tabular}
-        \caption[Theatrical DI (P3D60) - Test Values]{\texttt{ODT.Academy.P3D60\_48nits.a1.0.3} Test Values}
+        \caption[ACES 1.0 Output - P3-D60 -- Test Values]{ACES 1.0 Output - P3-D60 -- Test Values}
         \label{tab:testValues-p3d60}
 \end{table}
 
-%%%% Application - Theatrical On-Set Preview (Rec.709 SDR Reference Monitor) %%%% 
+%%%% ACES 1.0 Output - DCDM %%%% 
 \clearpage
-\section{Theatrical On-Set Preview (Rec.709 SDR Reference Monitor)}
-\label{sec:ot-app-rec709d60sim}
+\section{ACES 1.0 Output - DCDM}
+\label{sec:odt-details-dcdm}
+
+\subsection{Summary}
+\label{subsec:summary-dcdm}
+
+Summarize the application in real world terms
+
+\subsection{ODT Identifiers}
+\label{subsec:odt-ident-dcdm}
+
+\begin{table}[ht!]
+    \centering
+    \begin{tabular}{|p{1.5in}|p{3in}|}
+        \hline
+        \textbf{Simple Name} & \textbf{TransformID} \\ \hline
+        ACES 1.0 Output - DCDM & \texttt{\seqsplit{ODT.Academy.DCDM.a1.0.3}} \\ \hline
+    \end{tabular}
+    \caption[ACES 1.0 Output - DCDM -- Identifiers]{\small ACES 1.0 Output - DCDM -- Identifiers} 
+    \label{tab:odt-ident-dcdm}
+\end{table}
+
+\subsection{Recommended Display and Setup}
+\label{subsec:setup-dcdm}
+
+\subsection{Notes}
+\label{subsec:notes-dcdm}
+
+\subsection{Test Values}
+\label{subsec:testValues-dcdm}
+
+%%%% ACES 1.0 Output - DCDM (P3 gamut clip) %%%% 
+\clearpage
+\section{ACES 1.0 Output - DCDM (P3 gamut clip)}
+\label{sec:odt-details-dcdmP3clip}
+
+\subsection{Summary}
+\label{subsec:summary-dcdmP3clip}
+
+Summarize the application in real world terms
+
+\subsection{ODT Identifiers}
+\label{subsec:odt-ident-dcdmP3clip}
+
+\begin{table}[ht!]
+    \centering
+    \begin{tabular}{|p{1.5in}|p{3in}|}
+        \hline
+        \textbf{Simple Name} & \textbf{TransformID} \\ \hline
+        ACES 1.0 Output - DCDM (P3 gamut clip) & \texttt{\seqsplit{ODT.Academy.DCDM\_P3D60.a1.0.3}} \\ \hline
+    \end{tabular}
+    \caption[ACES 1.0 Output - DCDM (P3 gamut clip) -- Identifiers]{\small ACES 1.0 Output - DCDM (P3 gamut clip) -- Identifiers} 
+    \label{tab:odt-ident-dcdmP3clip}
+\end{table}
+
+\subsection{Recommended Display and Setup}
+\label{subsec:setup-dcdmP3clip}
+
+\subsection{Notes}
+\label{subsec:notes-dcdmP3clip}
+
+\subsection{Test Values}
+\label{subsec:testValues-dcdmP3clip}
+
+
+%%%% ACES 1.0 Output - Rec.709 (D60 sim.) %%%% 
+\clearpage
+\section{ACES 1.0 Output - Rec.709 (D60 sim.)}
+\label{sec:odt-details-rec709d60sim}
 
 \subsection{Summary}
 \label{subsec:summary-rec709d60sim}
 
 In theatrical workflows it is often desirable to preview the final look of the image on set as it is expected to appear during final color grading and mastering.  Using ACES based workflows it is likely the default chromaticity of neutrals will be x=0.32168 y=0.33767 (aka D60) on the DI projection screen regardless of the projector's calibration white point.  In order to properly preview this on-set it is recommended a Rec.709 SDR reference monitor with a calibration white point of CIE x=0.3127 y=0.3290 (aka D65) be used in conjunction with the ACES Output Transform \texttt{\seqsplit{ODT.Academy.Rec709\_D60sim\_100nits\_dim.a1.0.3}}.
 
-\subsection{Display Setup}
+\subsection{ODT Identifiers} 
+\label{subsec:odt-ident-rec709d60sim}
+
+\begin{table}[ht!]
+    \centering
+    \begin{tabular}{|p{2.2in}|p{3.6in}|}
+        \hline
+        \textbf{Simple Name} & \textbf{TransformID} \\ \hline
+        ACES 1.0 Output - Rec.709 (D60 sim.) & \texttt{\seqsplit{ODT.Academy.Rec709\_D60sim\_100nits\_dim.a1.0.3}} \\ \hline
+    \end{tabular}
+    \caption[ACES 1.0 Output - Rec.709 (D60 sim.) -- Identifiers]{\small ACES 1.0 Output - Rec.709 (D60 sim.) -- Identifiers} 
+    \label{tab:odt-ident-rec709d60sim}
+\end{table}
+
+\subsection{Recommended Display and Setup}
 \label{subsec:setup-rec709d60sim}
 
 \begin{table}[ht!]
@@ -356,23 +440,11 @@ In theatrical workflows it is often desirable to preview the final look of the i
             Signal & RGB 4:4:4 (Full range or Legal Range) \\ \hline
             Bit Depth & 10 or 12-bit \\ \hline 
     \end{tabular}
-    \caption[Theatrical On-Set Preview - Display Setup]{\small Rec.709 Display Setup} 
+    \caption[ACES 1.0 Output - Rec.709 (D60 sim.) -- Display Setup]{\small Rec.709 Display Setup} 
     \label{tab:setup-rec709d60sim}
 \end{table}
 
-\subsection{Best ODT for application} 
-\label{subsec:bestODT-rec709d60sim}
 
-\begin{table}[ht!]
-    \centering
-    \begin{tabular}{|p{2.2in}|p{3.6in}|}
-        \hline
-        \textbf{Simple Name} & \textbf{TransformID} \\ \hline
-        ACES 1.0 Output - Rec.709 (D60 sim.) & \texttt{\seqsplit{ODT.Academy.Rec709\_D60sim\_100nits\_dim.a1.0.3}} \\ \hline
-    \end{tabular}
-    \caption[Theatrical On-Set Preview - Best ODT]{\small Best Theatrical On-Set Preview ODT} 
-    \label{tab:bestODT-rec709d60sim}
-\end{table}
 
 \subsection{Notes}
 \label{subsec:notes-rec709d60sim}
@@ -399,7 +471,7 @@ slightly less than the maximum luminance produced by display code
 values red = 1, green = 1, blue = 1 (e.g.~100 nits).
 
 When using the correct Rec.709 reference display setup and corresponding ODT, the image
-on the projector screen will have a similar appearance to that of Application \ref{sec:ot-app-p3dci} and Application \ref{sec:ot-app-p3d60}.  However, the images will not measure exactly the same due the fact the Rec.709 reference display's max luminance is 100 nits vs 48 nits in DI, and the \texttt{\seqsplit{ODT.Academy.Rec709\_D60sim\_100nits\_dim.a1.0.3}} compensates for a dim viewing environment.
+on the projector screen will have a similar appearance to that of Application \ref{sec:odt-details-p3dci} and Application \ref{sec:odt-details-p3d60}.  However, the images will not measure exactly the same due the fact the Rec.709 reference display's max luminance is 100 nits vs 48 nits in DI, and the \texttt{\seqsplit{ODT.Academy.Rec709\_D60sim\_100nits\_dim.a1.0.3}} compensates for a dim viewing environment.
 
     \begin{figure*}[ht!]
         \centering
@@ -458,7 +530,7 @@ on the projector screen will have a similar appearance to that of Application \r
 \subsection{Test Values}
 \label{subsec:testValues-rec709d60sim}
 
-Table \ref{tab:bestODT-rec709d60sim} contains test values can be used to confirm the proper monitor setup and ODT combination.  Each of the 9 ACES RGB input values should yield the RGB noted display RGB code values (normalized 0-1, full range) when processed through the \texttt{\seqsplit{ODT.Academy.Rec709\_D60sim\_100nits\_dim.a1.0.3}}. When driving a properly setup display with the noted display RGB code values, the light from the display should measure with the noted CIE xyY colorimetry.  
+Table \ref{tab:odt-ident-rec709d60sim} contains test values can be used to confirm the proper monitor setup and ODT combination.  Each of the 9 ACES RGB input values should yield the RGB noted display RGB code values (normalized 0-1, full range) when processed through the \texttt{\seqsplit{ODT.Academy.Rec709\_D60sim\_100nits\_dim.a1.0.3}}. When driving a properly setup display with the noted display RGB code values, the light from the display should measure with the noted CIE xyY colorimetry.  
 
 If the display RGB code values do not match those in the table when using the corresponding input ACES RGB code values, it is likely the wrong ODT is being used.  If the proper display RGB code values are being produced by the ODT, but he measured display colorimetry doesn't match the display xyY code values noted, it is likely the display setup is incorrect.
 
@@ -478,34 +550,14 @@ If the display RGB code values do not match those in the table when using the co
         \textbf{Y}  & 0.8237 & 0.9378 & 0.0855 & 0.8289 & 0.8122 & 0.0999 & 0.422  & 0.5004 & 56.9904 \\
         \hline
         \end{tabular}
-        \caption[Theatrical On-Set Preview - Test Values]{\texttt{ODT.Academy.Rec709\_D60sim\_100nits\_dim.a1.0.3} Test Values}
+        \caption[ACES 1.0 Output - Rec.709 (D60 sim.) -- Test Values]{/small ACES 1.0 Output - Rec.709 (D60 sim.) -- Test Values}
         \label{tab:testValues-rec709d60sim}
 \end{table}
 
-%%%% Application - Theatrical On-Set Preview (iPad) %%%% 
+%%%% ACES 1.0 Output - Rec.709 %%%% 
 \clearpage
-\section{Theatrical On-Set Preview (iPad)}
-\label{sec:ot-app-iPad-d60sim}
-
-\subsection{Summary}
-\label{subsec:summary-iPad-d60sim}
-
-Summarize the application in real world terms
-
-\subsection{Best ODT for application}
-\label{subsec:bestODT-iPad-d60sim}
-
-\subsection{Notes}
-\label{subsec:notes-iPad-d60sim}
-
-\subsection{Test Values}
-\label{subsec:testValues-iPad-d60sim}
-
-
-%%%% Application -- SDR Broadcast Television Mastering %%%% 
-\clearpage
-\section{Broadcast Television Mastering (Rec.709 SDR Reference Monitor)}
-\label{sec:ot-app-rec709}
+\section{ACES 1.0 Output - Rec.709}
+\label{sec:odt-details-rec709}
 
 \subsection{Summary}
 \label{subsec:summary-rec709}
@@ -513,7 +565,21 @@ Summarize the application in real world terms
 Mastering of episodic television shows and other broadcast content often takes place while viewing images on a standard dynamic range (SDR) Rec.709  Reference Monitor. The display is typically configured such that equal red, green, and blue display code values will produce the chromaticity CIE x=0.3127 y=0.3290 (aka D65) on the screen. With the display
 configured in this manner, where the intention is to master content for broadcast, it is recommended that the ACES 1.0 ODT with the transformID \texttt{\seqsplit{ODT.Academy.Rec709\_100nits\_dim.a1.0.3}} be used.
 
-\subsection{Display Setup}
+\subsection{ODT Identifiers} 
+\label{subsec:odt-ident-rec709}
+
+\begin{table}[ht!]
+    \centering
+    \begin{tabular}{|p{1.6in}|p{3.1in}|}
+        \hline
+        \textbf{Simple Name} & \textbf{TransformID} \\ \hline
+        ACES 1.0 Output - Rec.709 & \texttt{\seqsplit{ODT.Academy.Rec709\_100nits\_dim.a1.0.3}} \\ \hline
+    \end{tabular}
+    \caption[ACES 1.0 Output - Rec.709 -- Identifiers]{\small ACES 1.0 Output - Rec.709 -- Identifiers} 
+    \label{tab:odt-ident-rec709}
+\end{table}
+
+\subsection{Recommended Display and Setup}
 \label{subsec:setup-rec709}
 
 \begin{table}[ht!]
@@ -529,22 +595,8 @@ configured in this manner, where the intention is to master content for broadcas
             Signal & RGB 4:4:4 (Full range or Legal Range) \\ \hline
             Bit Depth & 10 or 12-bit \\ \hline 
     	\end{tabular}
-    \caption[SDR Broadcast Television Mastering - Display Setup]{\small Rec.709 Display Setup} 
+    \caption[ACES 1.0 Output - Rec.709 -- Display Setup]{\small ACES 1.0 Output - Rec.709 -- Display Setup} 
     \label{tab:setup-rec709}
-\end{table}
-
-\subsection{Best ODT for application} 
-\label{subsec:bestODT-rec709}
-
-\begin{table}[ht!]
-    \centering
-    \begin{tabular}{|p{1.6in}|p{3.1in}|}
-        \hline
-        \textbf{Simple Name} & \textbf{TransformID} \\ \hline
-        ACES 1.0 Output - Rec.709 & \texttt{\seqsplit{ODT.Academy.Rec709\_100nits\_dim.a1.0.3}} \\ \hline
-    \end{tabular}
-    \caption[SDR Broadcast Television Mastering - Best ODT]{\small Broadcast Television Mastering ODT} 
-    \label{tab:bestODT-rec709}
 \end{table}
 
 \subsection{Notes}
@@ -630,191 +682,171 @@ If the display RGB code values do not match those in the table when using the co
         \textbf{M}  & 0.5800 & 0.2096 & 0.9086 & 0.8300 & 0.1500 & 0.8300 & 0.3207 & 0.1589 & 18.9661 \\ \hline
         \textbf{Y}  & 0.8237 & 0.9378 & 0.0855 & 0.8300 & 0.8300 & 0.1500 & 0.4164 & 0.5005 & 59.4021 \\ \hline
     \end{tabular}
-    \caption[SDR Broadcast Television Mastering - Test Values]{ \texttt{ODT.Academy.Rec709\_100nits\_dim.a1.0.3} Test Values}
+    \caption[ACES 1.0 Output - Rec.709 -- Test Values]{\small ACES 1.0 Output - Rec.709 -- Test Values}
     \label{tab:testValues-rec709}
 \end{table}
 
-%%%% Application -- Broadcast Television On-Set Preview (Rec.709 SDR Reference Monitor) %%%% 
+
+
+%%%%%%%%%% ACES 1.0 Output - P3-D60 ST2084 (1000 nits) %%%%%%%%%% 
 \clearpage
-\section{Broadcast Television On-Set Preview (Rec.709 SDR Reference Monitor)}
-\label{sec:ot-app-rec709onset}
+\section{ACES 1.0 Output - P3-D60 ST2084 (1000 nits)}
+\label{sec:odt-details-p3d60_1000nit}
 
 \subsection{Summary}
-\label{subsec:summary-rec709onset}
+\label{subsec:summary-p3d60_1000nit}
 
-It has become common to preview of episodic television production on-set using a standard dynamic range (SDR) Rec.709  Reference Monitor. The display is typically configured such that equal red, green, and blue display code values will produce the chromaticity CIE x=0.3127 y=0.3290 (aka D65) on the screen. With the display configured in this manner, where the intention is to master content for broadcast, it is recommended that the ACES 1.0 ODT with the transformID \texttt{\seqsplit{ODT.Academy.Rec709\_100nits\_dim.a1.0.3}} be used.
+Summarize the application in real world terms
 
-\subsection{Display Setup}
-\label{subsec:setup-rec709onset}
-
-\begin{table}[ht!]
-    \centering
-        \begin{tabular}{|p{1.25in}|p{3in}|}
-            \hline
-            \textbf{Parameter} & \textbf{Setting} \\ \hline
-            Max Luminance & 100 nits \\ \hline
-            Display White Point & D65 \\ \hline
-            Primaries & Rec.709  \\ \hline
-            EOTF & BT.1886 \\ \hline
-            Viewing Environment & dim \\ \hline
-            Signal & RGB 4:4:4 (Full range or Legal Range) \\ \hline
-            Bit Depth & 10 or 12-bit \\ \hline 
-    \end{tabular}
-    \caption[Broadcast Television On-Set Preview - Display Setup]{\small Rec.709 Display Setup} 
-    \label{tab:setup-rec709onset}
-\end{table}
-
-\subsection{Best ODT for application} 
-\label{subsec:bestODT-rec709onset}
+\subsection{ODT Identifiers}
+\label{subsec:odt-ident-p3d60_1000nit}
 
 \begin{table}[ht!]
     \centering
-    \begin{tabular}{|p{1.6in}|p{3.1in}|}
+    \begin{tabular}{|p{2.6in}|p{3.3in}|}
         \hline
         \textbf{Simple Name} & \textbf{TransformID} \\ \hline
-        ACES 1.0 Output - Rec.709 & \texttt{\seqsplit{ODT.Academy.Rec709\_100nits\_dim.a1.0.3}} \\ \hline
+        ACES 1.0 Output - P3-D60 ST2084 (1000 nits) & \texttt{\seqsplit{ODT.Academy.P3D60\_ST2084\_1000nits.a1.0.3}} \\ \hline
     \end{tabular}
-    \caption[Broadcast Television On-Set Preview - Best ODT]{\small Broadcast Television Mastering ODT} 
-    \label{tab:bestODT-rec709onset}
+    \caption[ACES 1.0 Output - P3-D60 ST2084 (1000 nits) -- Identifiers]{\small ACES 1.0 Output - P3-D60 ST2084 (1000 nits) -- Identifiers} 
+    \label{tab:odt-ident-p3d60_1000nit}
 \end{table}
 
+\subsection{Recommended Display and Setup}
+\label{subsec:setup-p3d60_1000nit}
+
 \subsection{Notes}
-\label{subsec:notes-rec709onset}
-
-\texttt{\seqsplit{ODT.Academy.Rec709\_100nits\_dim.a1.0.3}} is intended to be used with a broadcast display that configured such that equal red, green, and blue display code values produce a chromaticity CIE x=0.3127 y=0.3290 (aka D65) on the screen and the content is intended to be viewed in a typical home viewing environment. The output transform is configured such that neutral ACES source file values (ACES R=G=B) will produce equal
-projector code values. In this application, the image resulting on the display will mimick the content as it will appear in broadcast television mastering.  Care should be taken to configure choose the proper output range as the ODT supports both full and legal range.
-
-It's important to note that the image on display screen should be similar in color balance to content produced with other video workflows. The color corrector scopes should reflect this white balance similarity by producing equal red, green and blue display code values for neutral ACES source file values. The scopes may however appear different in range to some video workflows.  In ACES based workflows dynamic range of the source content is maintained by manipulating the content prior to the output transforms.  The shape of the output transform tone scale may be reflected in the display code values being monitored on the color corrector scopes.  This is common with other video workflows where a look-up table (LUT) is used.
-
-    \begin{figure*}[ht!]
-        \centering
-        \begin{subfigure}[b]{0.475\textwidth}
-            \centering
-            \includegraphics[width=\textwidth]{images/aces}
-            \caption[Source ACES Image]%
-            {{\small ACES Image}}    
-            \label{fig:acesSource-rec709onset}
-        \end{subfigure}
-        \hfill
-        \begin{subfigure}[b]{0.475\textwidth}  
-            \centering 
-            \includegraphics[width=\textwidth]{images/rec709/rec709_histogram}
-            \caption[Histogram]%
-            {{\small Histogram}}    
-            \label{fig:hist-rec709onset}
-        \end{subfigure}
-        \vskip\baselineskip
-        \begin{subfigure}[b]{0.475\textwidth}   
-            \centering 
-            \includegraphics[width=\textwidth]{images/rec709/rec709_parade}
-            \caption[Parade]%
-            {{\small Parade}}    
-            \label{fig:parade-rec709onset}
-        \end{subfigure}
-        \quad
-        \begin{subfigure}[b]{0.475\textwidth}   
-            \centering 
-            \includegraphics[width=\textwidth]{images/rec709/rec709_waveform}
-            \caption[]%
-            {{\small Waveform}}    
-            \label{fig:wf-rec709onset}
-        \end{subfigure}
-        \begin{subfigure}[b]{0.475\textwidth}   
-            \centering 
-            \includegraphics[width=\textwidth]{images/rec709/rec709_vectorscope}
-            \caption[]%
-            {{\small vectorscope}}    
-            \label{fig:vect-rec709onset}
-        \end{subfigure}
-        \quad
-        \begin{subfigure}[b]{0.475\textwidth}   
-            \centering 
-            \includegraphics[width=\textwidth]{images/rec709/rec709_image}
-            \caption[Projector code values as displayed on a D65 calibrated computer monitor]%
-            {{\small Projector code values as displayed on a D65 calibrated computer monitor}}    
-            \label{fig:cv-rec709onset}
-        \end{subfigure}
-        \caption[]
-        {\small \texttt{\seqsplit{ODT.Academy.Rec709\_100nits\_dim.a1.0.3}} Scope Screenshots} 
-        \label{fig:screenshots-rec709onset}
-    \end{figure*}
+\label{subsec:notes-p3d60_1000nit}
 
 \subsection{Test Values}
-\label{subsec:testValues-rec709onset}
+\label{subsec:testValues-p3d60_1000nit}
 
-Table \ref{tab:testValues-rec709onset} contains test values can be used to confirm the proper monitor setup and ODT combination.  Each of the 9 ACES RGB input values should yield the RGB noted display RGB code values (normalized 0-1, full range) when processed through the \texttt{\seqsplit{ODT.Academy.Rec709\_100nits\_dim.a1.0.3}}. When driving a properly setup display with the noted display RGB code values, the light from the display should measure with the noted CIE xyY colorimetry.  
+%%%%%%%%%% ACES 1.0 Output - P3-D60 ST2084 (2000 nits) %%%%%%%%%% 
+\clearpage
+\section{ACES 1.0 Output - P3-D60 ST2084 (2000 nits)}
+\label{sec:odt-details-p3d60_2000nit}
 
-If the display RGB code values do not match those in the table when using the corresponding input ACES RGB code values, it is likely the wrong ODT is being used.  If the proper display RGB code values are being produced by the ODT, but he measured display colorimetry doesn't match the display xyY code values noted, it is likely the display setup is incorrect.
+\subsection{Summary}
+\label{subsec:summary-p3d60_2000nit}
+
+Summarize the application in real world terms
+
+\subsection{ODT Identifiers}
+\label{subsec:odt-ident-p3d60_2000nit}
 
 \begin{table}[ht!]
     \centering
-    \begin{tabular}{|l|l|l|l|l|l|l|l|l|l|}
+    \begin{tabular}{|p{2.6in}|p{3.3in}|}
         \hline
-        \multicolumn{1}{|c|}{\textbf{Patch}} & \multicolumn{3}{c|}{\textbf{ACES RGB}} & \multicolumn{3}{c|}{\textbf{Display RGB}} & \multicolumn{3}{c|}{\textbf{Display xyY}} \\ \hline
-        \textbf{N1} & 1.8233 & 1.8233 & 1.8233 & 0.9000 & 0.9000 & 0.9000 & 0.3127 & 0.3290 & 77.6573 \\ \hline
-        \textbf{N2} & 0.2753 & 0.2753 & 0.2753 & 0.5000 & 0.5000 & 0.5000 & 0.3127 & 0.3290 & 18.9465 \\ \hline
-        \textbf{N3} & 0.0898 & 0.0898 & 0.0898 & 0.2500 & 0.2500 & 0.2500 & 0.3127 & 0.3290 & 3.5897  \\ \hline
-        \textbf{R}  & 0.4689 & 0.1193 & 0.0417 & 0.8275 & 0.1525 & 0.1498 & 0.6155 & 0.3303 & 14.3569 \\ \hline
-        \textbf{G}  & 0.3390 & 0.8068 & 0.0936 & 0.1500 & 0.8300 & 0.1500 & 0.3005 & 0.5889 & 46.0295 \\ \hline
-        \textbf{B}  & 0.2162 & 0.1330 & 0.8711 & 0.1500 & 0.1500 & 0.8300 & 0.1566 & 0.0709 & 5.5935  \\ \hline
-        \textbf{C}  & 0.5187 & 0.9138 & 1.0432 & 0.1500 & 0.8300 & 0.8300 & 0.2265 & 0.3287 & 50.5696 \\ \hline
-        \textbf{M}  & 0.5800 & 0.2096 & 0.9086 & 0.8300 & 0.1500 & 0.8300 & 0.3207 & 0.1589 & 18.9661 \\ \hline
-        \textbf{Y}  & 0.8237 & 0.9378 & 0.0855 & 0.8300 & 0.8300 & 0.1500 & 0.4164 & 0.5005 & 59.4021 \\ \hline
+        \textbf{Simple Name} & \textbf{TransformID} \\ \hline
+        ACES 1.0 Output - P3-D60 ST2084 (2000 nits) & \texttt{\seqsplit{ODT.Academy.P3D60\_ST2084\_2000nits.a1.0.3}} \\ \hline
     \end{tabular}
-    \caption[Broadcast Television On-Set Preview - Test Values]{ \texttt{ODT.Academy.Rec709\_100nits\_dim.a1.0.3} Test Values}
-    \label{tab:testValues-rec709onset}
+    \caption[ACES 1.0 Output - P3-D60 ST2084 (2000 nits) -- Identifiers]{\small ACES 1.0 Output - P3-D60 ST2084 (2000 nits) -- Identifiers} 
+    \label{tab:odt-ident-p3d60_2000nit}
 \end{table}
 
-%%%% Application - Broadcast Television On-Set Preview (iPad) %%%% 
+\subsection{Recommended Display and Setup}
+\label{subsec:setup-p3d60_2000nit}
+
+\subsection{Notes}
+\label{subsec:notes-p3d60_2000nit}
+
+\subsection{Test Values}
+\label{subsec:testValues-p3d60_2000nit}
+
+%%%%%%%%%% ACES 1.0 Output - P3-D60 ST2084 (4000 nits) %%%%%%%%%% 
 \clearpage
-\section{Broadcast Television On-Set Preview (iPad)}
-\label{sec:ot-app-iPad-d60}
+\section{ACES 1.0 Output - P3-D60 ST2084 (4000 nits)}
+\label{sec:odt-details-p3d60_4000nit}
 
 \subsection{Summary}
-\label{subsec:summary-iPad-d60}
+\label{subsec:summary-p3d60_4000nit}
 
 Summarize the application in real world terms
 
-\subsection{Best ODT for application}
-\label{subsec:bestODT-iPad-d60}
+\subsection{ODT Identifiers}
+\label{subsec:odt-ident-p3d60_4000nit}
+
+\begin{table}[ht!]
+    \centering
+    \begin{tabular}{|p{2.6in}|p{3.3in}|}
+        \hline
+        \textbf{Simple Name} & \textbf{TransformID} \\ \hline
+        ACES 1.0 Output - P3-D60 ST2084 (4000 nits) & \texttt{\seqsplit{ODT.Academy.P3D60\_ST2084\_4000nits.a1.0.3}} \\ \hline
+    \end{tabular}
+    \caption[ACES 1.0 Output - P3-D60 ST2084 (4000 nits) -- Identifiers]{\small ACES 1.0 Output - P3-D60 ST2084 (4000 nits) -- Identifiers} 
+    \label{tab:odt-ident-p3d60_4000nit}
+\end{table}
+
+\subsection{Recommended Display and Setup}
+\label{subsec:setup-p3d60_4000nit}
 
 \subsection{Notes}
-\label{subsec:notes-iPad-d60}
+\label{subsec:notes-p3d60_4000nit}
 
 \subsection{Test Values}
-\label{subsec:testValues-iPad-d60}
+\label{subsec:testValues-p3d60_4000nit}
 
-%%%%%%%%%% application -- High Dynamic Range On-Set Preview %%%%%%%%%% 
+%%%%%%%%%% ACES 1.0 Output - Rec.2020 ST2084 (1000 nits) %%%%%%%%%% 
 \clearpage
-\section{High Dynamic Range On-Set Preview (Rec.2020 HDR Reference Monitor)}
-\label{sec:ot-app-rec2020hdr}
+\section{ACES 1.0 Output - Rec.2020 ST2084 (1000 nits)}
+\label{sec:odt-details-rec2020_1000nit}
 
 \subsection{Summary}
-\label{subsec:summary-rec2020hdr}
+\label{subsec:summary-rec2020_1000nit}
 
 Summarize the application in real world terms
 
-\subsection{Best ODT for application}
-\label{subsec:bestODT-rec2020hdr}
+\subsection{ODT Identifiers}
+\label{subsec:odt-ident-rec2020_1000nit}
+
+\begin{table}[ht!]
+    \centering
+    \begin{tabular}{|p{2.7in}|p{3.45in}|}
+        \hline
+        \textbf{Simple Name} & \textbf{TransformID} \\ \hline
+        ACES 1.0 Output - Rec.2020 ST2084 (1000 nits) & \texttt{\seqsplit{ODT.Academy.Rec2020\_ST2084\_1000nits.a1.0.3}} \\ \hline
+    \end{tabular}
+    \caption[ACES 1.0 Output - Rec.2020 ST2084 (1000 nits) -- Identifiers]{\small ACES 1.0 Output - Rec.2020 ST2084 (1000 nits) -- Identifiers} 
+    \label{tab:odt-ident-rec2020_1000nit}
+\end{table}
+
+\subsection{Recommended Display and Setup}
+\label{subsec:setup-rec2020_1000nit}
 
 \subsection{Notes}
-\label{subsec:notes-rec2020hdr}
+\label{subsec:notes-rec2020_1000nit}
 
 \subsection{Test Values}
-\label{subsec:testValues-rec2020hdr}
+\label{subsec:testValues-rec2020_1000nit}
 
-%%%%%%%%%% application -- Computer Visual Effects (VFX) Generation %%%%%%%%%% 
+
+%%%%%%%%%% ACES 1.0 Output - sRGB %%%%%%%%%% 
 \clearpage
-\section{Computer Visual Effects (VFX) Generation (Desktop Computer Monitor)}
-\label{sec:ot-app-rgbMonitor}
+\section{ACES 1.0 Output - sRGB}
+\label{sec:odt-details-rgbMonitor}
 
 \subsection{Summary}
 \label{subsec:summary-rgbMonitor}
 
 Summarize the application in real world terms
 
-\subsection{Best ODT for application}
-\label{subsec:bestODT-rgbMonitor}
+\subsection{ODT Identifiers}
+\label{subsec:odt-ident-rgbMonitor}
+
+\begin{table}[ht!]
+    \centering
+    \begin{tabular}{|p{2.7in}|p{3.45in}|}
+        \hline
+        \textbf{Simple Name} & \textbf{TransformID} \\ \hline
+        ACES 1.0 Output - sRGB & \texttt{\seqsplit{ODT.Academy.RGBmonitor\_100nits\_dim.a1.0.3}} \\ \hline
+    \end{tabular}
+    \caption[ACES 1.0 Output - sRGB -- Identifiers]{\small ACES 1.0 Output - sRGB -- Identifiers} 
+    \label{tab:odt-ident-rec2020_1000nit}
+\end{table}
+
+\subsection{Recommended Display and Setup}
+\label{subsec:setup-rgbMonitor}
 
 \subsection{Notes}
 \label{subsec:notes-rgbMonitor}
@@ -823,42 +855,38 @@ Summarize the application in real world terms
 \label{subsec:testValues-rgbMonitor}
 
 
-%%%%%%%%%% application -- HDR10 Deliverable Generation %%%%%%%%%% 
+%%%%%%%%%% ACES 1.0 Output - sRGB (D60 sim) %%%%%%%%%% 
 \clearpage
-\section{HDR10 Deliverable Generation (HDR 1000 nit Rec.2020 ST-2084)}
-\label{sec:ot-app-hdr10}
+\section{ACES 1.0 Output - sRGB (D60 sim)}
+\label{sec:odt-details-rgbMonitorD60sim}
 
 \subsection{Summary}
-\label{subsec:summary-hdr10}
+\label{subsec:summary-rgbMonitorD60sim}
 
 Summarize the application in real world terms
 
-\subsection{Best ODT for application}
-\label{subsec:bestODT-hdr10}
+\subsection{ODT Identifiers}
+\label{subsec:odt-ident-rgbMonitorD60sim}
+
+\begin{table}[ht!]
+    \centering
+    \begin{tabular}{|p{2.7in}|p{3.45in}|}
+        \hline
+        \textbf{Simple Name} & \textbf{TransformID} \\ \hline
+        ACES 1.0 Output - sRGB & \texttt{\seqsplit{ODT.Academy.RGBmonitor\_D60sim\_100nits\_dim.a1.0.3}} \\ \hline
+    \end{tabular}
+    \caption[ACES 1.0 Output - sRGB (D60 sim) -- Identifiers]{\small ACES 1.0 Output - sRGB (D60 sim) -- Identifiers} 
+    \label{tab:odt-ident-rec2020_1000nit}
+\end{table}
+
+\subsection{Recommended Display and Setup}
+\label{subsec:setup-rgbMonitorD60sim}
 
 \subsection{Notes}
-\label{subsec:notes-hdr10}
+\label{subsec:notes-rgbMonitorD60sim}
 
 \subsection{Test Values}
-\label{subsec:testValues-hdr10}
+\label{subsec:testValues-rgbMonitorD60sim}
 
 
-%%%%%%%%%% application -- Dolby Vision Master %%%%%%%%%% 
-\clearpage
-\section{Dolby Vision Master (4000 nit Dolby Pulsar PQ Master)}
-\label{sec:ot-app-doblyVision}
-
-\subsection{Summary}
-\label{subsec:summary-doblyVision}
-
-Summarize the application in real world terms
-
-\subsection{Best ODT for application}
-\label{subsec:bestODT-doblyVision}
-
-\subsection{Notes}
-\label{subsec:notes-doblyVision}
-
-\subsection{Test Values}
-\label{subsec:testValues-dolbyVision}
 
