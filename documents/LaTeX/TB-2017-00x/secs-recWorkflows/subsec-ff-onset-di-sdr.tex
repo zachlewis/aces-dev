@@ -1,0 +1,31 @@
+\subsection{Production and Mastering -- SDR On-Set and Digital Intermediate} \label{subsec:ff-onset-di-sdr}
+
+	\subsubsection{Summary}
+	It is common in the production of digital feature films to monitor the output of the camera on-set to check for framing, exposure, and often to create looks.  Looks are often created on-set or near-set using an on-set grading system with the result being a series of ASC-CDL values that are passed to digital intermediate (DI) mastering facility as a starting point for final grading.  In order to insure looks are set and communicated from on-set to the DI master facility as intended, it's important that the correct Output Transforms be used in each location.  The following is a recommendation for the usage of Output transforms for a common on-set to digital intermediate workflow.
+	
+	\subsubsection{Workflow}
+	The complete workflow from camera to post is beyond the scope of this document, but Figure \ref{fig:workflow1} shows a typical workflow for the creation and communication of looks during feature film production.
+	
+	\begin{figure*}[ht!]
+	\centering
+	    \includegraphics[width=4in]{images/workflows/workflow_ff-sdr-on-set-di.pdf}
+	    \caption{\small Feature Film On-Set to SDR DI Workflow}
+	    \label{fig:workflow1}
+	\end{figure*}
+	
+	In this on-set to digital intermediate workflow a Rec.709 reference display is connected to the on-set grading system and a digital cinema projector is connected to the DI grading system.  In this workflow it is suggested that the on-set grading system be configured according to the Output Transform Application specified in Section \ref{sec:odt-details-rec709d60sim}.  The DI grading system should be configured according to the output device transform details specified in section \ref{sec:odt-details-p3d60}, or alternatively Section \ref{sec:odt-details-p3dci}.  The recommendations are summarized in Table \ref{tab:sum-ff-os-workflow}.
+	
+	\begin{table}[ht!]
+	\centering
+	\begin{tabular}{|p{0.5in}|p{1.2in}|p{3.75in}|}
+	\hline
+	\textbf{System}   & \textbf{Display}            & \textbf{Suggested ODT}                                                  \\ \hline
+	On-set \newline Grading & Rec.709 Reference Monitor   & \texttt{\seqsplit{ODT.Academy.Rec709\_D60sim\_100nits\_dim.a1.0.3}} \\ \hline
+	DI \newline Grading & P3 Digital Cinema Projector & \texttt{\seqsplit{ODT.Academy.P3D60\_48nits.a1.0.3}} \newline or \newline \texttt{\seqsplit{ODT.Academy.P3DCI\_48nits.a1.0.3}}           \\ \hline
+	\end{tabular}
+	\caption[Workflows - Feature Film (Onset-DI) - Suggested ODTs]{Summary of suggested ODTs}
+	\label{tab:sum-ff-os-workflow}
+	\end{table}
+	
+	\subsubsection{Discussion}	
+	In the on-set to digital intermediate workflow for episodic television, using the suggested ODT will provide a colorimetric match between the two environments.  The appearance and measurement of the displays will match to the degree that the reference monitors and viewing environments match the each other and the specifications listed in section \ref{sec:odt-details-rec709}.  One should not assume that any given display matches either the specification, or other displays, used in the workflow without careful calibration.  Likewise, care should be taken to make sure the viewing environments match to insure a perceptual color

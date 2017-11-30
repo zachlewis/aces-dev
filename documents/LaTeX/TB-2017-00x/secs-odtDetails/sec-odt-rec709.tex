@@ -1,0 +1,55 @@
+% Section Start
+\section[Rec709]{\shortName{}}
+\label{sec:odt-details-\id}
+
+%% Summary
+\subsection{Summary}
+\label{subsec:summary-\id}
+
+Mastering of episodic television shows and other broadcast content often takes place while viewing images on a standard dynamic range (SDR) Rec.709  Reference Monitor. The display is typically configured such that equal red, green, and blue display code values will produce the chromaticity CIE x=0.3127 y=0.3290 (aka D65) on the screen. With the display configured in this manner, where the intention is to master content for broadcast, it is recommended that the ACES 1.0 ODT with the transformID \texttt{\seqsplit{ODT.Academy.Rec709\_100nits\_dim.a1.0.3}} be used.
+
+%% Transform Identifiers
+\subsection{Transform Identifiers} 
+\label{subsec:odt-ident-\id}
+\idTable{1.5}{3}
+
+%% Recommended Display Setup
+\subsection{Recommended Display and Setup}
+\label{subsec:setup-\id}
+
+\begin{table}[ht!]
+    \centering
+        \begin{tabular}{|p{1.5in}|p{3in}|}
+            \hline
+            \textbf{Parameter} 		& 	\textbf{Setting} 				 		\\ \hline
+            Display Type 			&	Reference Broadcast Monitor				\\ \hline
+            Display Max Luminance 	& 	100 cd/m$^2$							\\ \hline
+            Primaries	 			& 	ITU-R BT.709							\\ \hline
+            White Point	 			& 	D65 (CIE x=0.3127 y=0.3290)				\\ \hline
+            EOTF					& 	ITU-R BT.1886		 					\\ \hline
+            Signal 					&	RGB 4:4:4 (Full range or Legal Range)	\\ \hline
+            Viewing Environment 	& 	Dim Surround							\\ \hline
+            Bit Depth 				& 	10 or 12-bit	 						\\ \hline 
+    \end{tabular}
+    \caption{Display Setup: \shortName{}} 
+    \label{tab:setup-\id}
+\end{table}
+
+%% Notes
+\subsection{Notes}
+\label{subsec:notes-\id}
+
+%\transformID 
+is intended to be used with a broadcast display that configured such that equal red, green, and blue display code values produce a chromaticity CIE x=0.3127 y=0.3290 (aka D65) on the screen and the content is intended to be viewed in a typical home viewing environment. The output transform is configured such that neutral ACES source file values (ACES R=G=B) will produce equal projector code values. In this application, the resulting content will inter-cut with content produced using other video workflows.  Care should be taken to configure choose the proper output range as the ODT supports both full and legal range.
+
+It's important to note that the image on display screen should be similar in color balance to content produced with other video workflows. The color corrector scopes should reflect this white balance similarity by producing equal red, green and blue display code values for neutral ACES source file values. The scopes may however appear different in range to some video workflows.  In ACES based workflows dynamic range of the source content is maintained by manipulating the content prior to the output transforms.  The shape of the output transform tone scale may be reflected in the display code values being monitored on the color corrector scopes.  This is common with other video workflows where a look-up table (LUT) is used.
+\odtScreenshots{Projector code values as displayed on a D65 calibrated computer monitor}
+
+%% Test Values
+\subsection{Test Values}
+\label{subsec:testValues-\id}
+
+\testValuesSubSec{}
+
+
+
