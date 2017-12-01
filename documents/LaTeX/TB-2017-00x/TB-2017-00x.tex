@@ -7,6 +7,8 @@
 \usepackage{csvsimple}
 \usepackage{siunitx}
 \usepackage{lipsum}
+\usepackage{xstring}
+\usepackage{newtxmath}
 
 % Set Document Details
 \doctype{tb} % spec, proc, tb (Specification, Procedure, Technical Bulletin)
@@ -23,6 +25,22 @@
 % Sets the document "DRAFT" watermark
 \SetWatermarkLightness{0.95}
 \SetWatermarkScale{1}
+
+% A few useful global macros
+\newcommand{\whitepoint}[1]{%
+    \IfEqCase{#1}{%
+        {aces}{CIE $x{=}0.32168$ $y{=}0.33767$}%
+        {d65}{CIE $x{=}0.3127$ $y{=}0.3290$}%
+    }[\PackageError{whitepoint}{Undefined option to whitepoint: #1}{}]%
+}%
+
+\newcommand{\rgbequal}[1]{%
+    $R{=}G{=}B$
+}%
+
+\newcommand{\nits}[1]{
+	\SI[per-mode=symbol]{#1}{\candela\per\meter\squared}
+}
 
 % Document Starts Here
 \begin{document}
