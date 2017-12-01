@@ -36,11 +36,18 @@
 }%
 
 \newcommand{\rgbequal}[1]{%
-    $R{=}G{=}B$
+    $R{=}G{=}B$%
+    \ignorespaces
+}%
+
+\newcommand{\rgbequalone}[1]{%
+    $R{=}G{=}B{=}1.0$%
+    \ignorespaces
 }%
 
 \newcommand{\nits}[1]{
-	\SI[per-mode=symbol]{#1}{\candela\per\meter\squared}
+	\SI[per-mode=symbol]{#1}{\candela\per\meter\squared}%
+	\ignorespaces
 }
 
 % Document Starts Here
