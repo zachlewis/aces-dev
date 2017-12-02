@@ -6,7 +6,7 @@
 \subsection{Summary}
 \label{subsec:summary-\id}
 
-\lipsum[1-2] %TODO: Write DCDM P3 Clip ODT Summary
+During the digital intermediate process (DI) to color correct motion pictures it is common to display the images using a DCI compliant digital cinema projector.  The projector is often configured to accept code values corresponding to the projector's red, green and blue color channels.  However, after mastering has been completed, motion pictures are typically distributed as Digital Cinema Packages (DCPs) where the images are encoded as X'Y'Z' as specified in SMPTE ST 428-1:2006.  These images are intended to be viewed on a digital cinema projector that is configured according to the specifications in SMPTE RP 431-2:2007.  The ACES ODT with the transformID \transformID{\id} may be used to generated X'Y'Z' encoded Digital Cinema Distribution Master (DCDM) files for inclusion in a DCP.
 
 %% Transform Identifiers
 \subsection{Transform Identifiers} 
@@ -39,7 +39,11 @@
 \subsection{Notes}
 \label{subsec:notes-\id}
 
-\lipsum[1-2] %TODO: Write DCDM P3 Clip ODT Notes
+It is not recommended to use the ACES ODT with the transformID \transformID{\id} during the DI process.  Rather, the \transformID{\id} is provided to aid in the conversion of the final RGB graded master into a DCDM when more appropriate tools are not available.  In general, it is recommended that RGB master files be produced with the appropriate ODT for the mastering display device and those RGB files be converted to a DCDM using a tool intended to perform DCDM transcodings. This requires that the transcoding tools have knowledge of the RGB encodings primaries and white point.  If the transcoding tools make incorrect assumptions about either the primaries or the white point than the DCDM images will be incorrect.  In such cases the \shortName{dcdmP3clip} maybe useful.  
+
+\transformID{\id} attempts to limit the colorimetry of the DCDM to that of a  mastering display with the primaries and white point correspond to P3 and \whitepoint{aces} (aka D$_{60}$). It has been provided as a way to generate DCDM files when no transcoding tools are available.  It should, however, only be used when a mastering display primaries and white point correspond to P3 and D60 was used.  If no transcoding tools are available and the mastering display's primaries and white point do not correspond to P3 and D60, the ACES ODT \transformID{dcdm} should be used. The details of \transformID{dcdm} are described in \ref{sec:odt-details-dcdm}. 
+
+When properly configured, images processed with \transformID{\id} and analyzed with a waveform monitor will exhibit the behaviors shown in figures \ref{fig:acesSource-\id}, \ref{fig:hist-\id}, \ref{fig:parade-\id}, \ref{fig:wf-\id}, \ref{fig:vect-\id}.
 
 \odtScreenshots{Projector code values as displayed on a D$_{65}$ calibrated computer monitor} % TODO:Replace placeholder screenshots
 
