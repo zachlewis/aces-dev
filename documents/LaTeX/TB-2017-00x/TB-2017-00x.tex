@@ -10,22 +10,6 @@
 \usepackage{xstring}
 \usepackage{newtxmath}
 
-% Set Document Details
-\doctype{tb} % spec, proc, tb (Specification, Procedure, Technical Bulletin)
-\docname{ACES Output Transform User Guide}
-\altdocname{ACES Output Transform User Guide}
-
-% Sets the document name used in header - usually an abbreviated document title
-\docnumber{TB-2017-00x}
-\committeename{Academy Color Encoding System (ACES) Project Committee}
-\docdate{November 26, 2017}
-\summary{ The Academy Color Encoding System (ACES) includes a variety of Output Transforms intended to support a wide range of display devices.  These devices include standard dynamic range digital cinema projectors, broadcast monitors, computer desktop displays, and high dynamic range displays.  Each of these devices may be configured differently and requires an ACES output transforms be used based on the specifics of the configuration.  This document is intended to be practical guide help end-users determine the proper ACES output transform to be used based on their devices, configurations, and workflows.
-}
-
-% Sets the document "DRAFT" watermark
-\SetWatermarkLightness{0.95}
-\SetWatermarkScale{1}
-
 % A few useful global macros
 \newcommand{\whitepoint}[1]{%
     \IfEqCase{#1}{%
@@ -49,6 +33,84 @@
 	\SI[per-mode=symbol]{#1}{\candela\per\meter\squared}%
 	\ignorespaces
 }
+
+\newcommand{\transformID}[1]{%
+    \IfEqCase{#1}{%
+        {p3dci}{\texttt{\seqsplit{ODT.Academy.P3DCI\_48nits.a1.0.3}%
+        \ignorespaces}}%
+        {p3d60}{\texttt{\seqsplit{ODT.Academy.P3D60\_48nits.a1.0.3}%
+        \ignorespaces}}%
+        {dcdm}{\texttt{\seqsplit{ODT.Academy.DCDM.a1.0.3}%
+        \ignorespaces}}%
+        {dcdmP3clip}{\texttt{\seqsplit{ODT.Academy.DCDM\_P3D60.a1.0.3}%
+        \ignorespaces}}%
+        {rec709_d60sim}{\texttt{\seqsplit{ODT.Academy.Rec709\_D60sim\_100nits\_dim.a1.0.3}%
+        \ignorespaces}}%
+        {rec709}{\texttt{\seqsplit{ODT.Academy.Rec709\_100nits\_dim.a1.0.3}%
+        \ignorespaces}}%
+        {rec2020_100nit}{\texttt{\seqsplit{ODT.Academy.Rec2020\_100nits\_dim.a1.0.3}%
+        \ignorespaces}}%
+        {p3d60_1000nit}{\texttt{\seqsplit{ODT.Academy.P3D60\_ST2084\_1000nits.a1.0.3}%
+        \ignorespaces}}%
+        {p3d60_2000nit}{\texttt{\seqsplit{ODT.Academy.P3D60\_ST2084\_2000nits.a1.0.3}%
+        \ignorespaces}}%
+        {p3d60_4000nit}{\texttt{\seqsplit{ODT.Academy.P3D60\_ST2084\_4000nits.a1.0.3}%
+        \ignorespaces}}%
+        {rec2020_1000nit}{\texttt{\seqsplit{ODT.Academy.Rec2020\_ST2084\_1000nits.a1.0.3}%
+        \ignorespaces}}%
+        {rgbMonitor}{\texttt{\seqsplit{ODT.Academy.RGBmonitor\_100nits\_dim.a1.0.3}%
+        \ignorespaces}}%
+        {rgbMonitorD60sim}{\texttt{\seqsplit{ODT.Academy.RGBmonitor\_D60sim\_100nits\_dim.a1.0.3}%
+        \ignorespaces}}%
+    }[\PackageError{transformID}{Undefined option to transformID: #1}{}]%
+}%
+
+\newcommand{\shortName}[1]{%
+    \IfEqCase{#1}{%
+        {p3dci}{{ACES 1.0 Output - P3-DCI}%
+        \ignorespaces}%
+        {p3d60}{{ACES 1.0 Output - P3-D60}%
+        \ignorespaces}%
+        {dcdm}{{ACES 1.0 Output - DCDM}%
+        \ignorespaces}%
+        {dcdmP3clip}{{ACES 1.0 Output - DCDM (P3 gamut clip)}%
+        \ignorespaces}%
+        {rec709_d60sim}{{ACES 1.0 Output - Rec.709 (D60 sim.)}%
+        \ignorespaces}%
+        {rec709}{{ACES 1.0 Output - Rec.709}%
+        \ignorespaces}%
+        {rec2020_100nit}{{ACES 1.0 Output - Rec.2020}%
+        \ignorespaces}%
+        {p3d60_1000nit}{{ACES 1.0 Output - P3-D60 ST2084 (1000 nits)}%
+        \ignorespaces}%
+        {p3d60_2000nit}{{ACES 1.0 Output - P3-D60 ST2084 (2000 nits)}%
+        \ignorespaces}%
+        {p3d60_4000nit}{{ACES 1.0 Output - P3-D60 ST2084 (4000 nits)}%
+        \ignorespaces}%
+        {rec2020_1000nit}{{ACES 1.0 Output - Rec.2020 ST2084 (1000 nits)}%
+        \ignorespaces}%
+        {rgbMonitor}{{ACES 1.0 Output - sRGB}%
+        \ignorespaces}%
+        {rgbMonitorD60sim}{{ACES 1.0 Output - sRGB (D60 sim)}%
+        \ignorespaces}%
+    }[\PackageError{shortName}{Undefined option to shortName: #1}{}]%
+}%
+
+% Set Document Details
+\doctype{tb} % spec, proc, tb (Specification, Procedure, Technical Bulletin)
+\docname{ACES Output Transform User Guide}
+\altdocname{ACES Output Transform User Guide}
+
+% Sets the document name used in header - usually an abbreviated document title
+\docnumber{TB-2017-00x}
+\committeename{Academy Color Encoding System (ACES) Project Committee}
+\docdate{November 26, 2017}
+\summary{ The Academy Color Encoding System (ACES) includes a variety of Output Transforms intended to support a wide range of display devices.  These devices include standard dynamic range digital cinema projectors, broadcast monitors, computer desktop displays, and high dynamic range displays.  Each of these devices may be configured differently and requires an ACES output transforms be used based on the specifics of the configuration.  This document is intended to be practical guide help end-users determine the proper ACES output transform to be used based on their devices, configurations, and workflows.
+}
+
+% Sets the document "DRAFT" watermark
+\SetWatermarkLightness{0.95}
+\SetWatermarkScale{1}
 
 % Document Starts Here
 \begin{document}

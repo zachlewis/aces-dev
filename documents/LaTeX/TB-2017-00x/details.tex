@@ -8,9 +8,9 @@
 	    \begin{tabular}{|p{#1in}|p{#2in}|}
 	        \hline
 	        \textbf{Simple Name} & \textbf{TransformID} \\ \hline
-	        \shortName{} & \transformID{} \\ \hline
+	        \shortName{\id} & \transformID{\id} \\ \hline
 	    \end{tabular}
-	    \caption{Transform Identifiers: \shortName{}} 
+	    \caption{Transform Identifiers: \protect\shortName{\id}}
 	    \label{tab:odt-ident-\id}
 	\end{table}
 }
@@ -28,7 +28,7 @@
         \hfill
         \begin{subfigure}[b]{0.475\textwidth}  
             \centering 
-            \includegraphics[width=\textwidth]{images/\id /\id _histogram}
+            \includegraphics[width=\textwidth]{images/\id/\id _histogram}
             \caption{Histogram}    
             \label{fig:hist-\id}
         \end{subfigure}
@@ -89,19 +89,21 @@
 	            \hline, 
 	            command=&\csvcoli & \csvcolii & \csvcoliii & \csvcoliv & \csvcolv & \csvcolvi & \csvcolvii & \csvcolviii & \csvcolix,
 	            late after line=\\\hline}
-	        \caption{Test Values: \shortName{}}
+	        \caption{Test Values: \protect\shortName{\id}}
 			\label{tab:testValues-\id}
 	\end{table}
 }
 
 % Test Values Sub-Section Macro
 \newcommand{\testValuesSubSec}{	
-	Table \ref{tab:testValues-\id} contains test values can be used to confirm the proper monitor setup and ODT combination.  Each of the 9 ACES RGB input values should yield the RGB noted display RGB code values (normalized 0-1, full range) when processed through the \transformID{}. When driving a properly setup display with the noted display RGB code values, the light from the display should measure with the noted CIE xyY colorimetry.  
+	Table \ref{tab:testValues-\id} contains test values can be used to confirm the proper monitor setup and ODT combination.  Each of the 9 ACES RGB input values should yield the RGB noted display RGB code values (normalized 0-1, full range) when processed through the \transformID{\id}. When driving a properly setup display with the noted display RGB code values, the light from the display should measure with the noted CIE xyY colorimetry.  
 	
 	If the display RGB code values do not match those in the table when using the corresponding input ACES RGB code values, it is likely the wrong ODT is being used.  If the proper display RGB code values are being produced by the ODT, but he measured display colorimetry doesn't match the display xyY code values noted, it is likely the display setup is incorrect.
 	
 	\testValuesTable{}
 }
+
+
 	
 
 %% Modify below this line %%
@@ -109,93 +111,68 @@
 \chapter{Output Device Transform Details}\label{ch:odt-details}
 This section contains usage details and applications notes for each of the Output Device Transforms included in the ACES 1.0 release.  Each ODT is intended to be used with a particular display, configure in a particular manner, and viewed in a particular viewing environment.  If an ODT is used with a different display, display configuration, or viewing environment than those specified in this section, the resulting image may not appear as intended.  Care needs to be taken to properly calibrate devices in order to insure consistent and accurate color reproduction.
 
+
 %% ACES 1.0 Output - P3-DCI 
-\newcommand{\transformID}{\texttt{\seqsplit{ODT.Academy.P3DCI\_48nits.a1.0.3}}}
-\newcommand{\shortName}{ACES 1.0 Output - P3-DCI}
 \newcommand{\id}{p3dci}
 \input{secs-odtDetails/sec-odt-p3dci}
 \clearpage
 
 %% ACES 1.0 Output - P3-D60
-\renewcommand{\transformID}{\texttt{\seqsplit{ODT.Academy.P3D60\_48nits.a1.0.3}}}
-\renewcommand{\shortName}{ACES 1.0 Output - P3-D60}
 \renewcommand{\id}{p3d60}
 \input{secs-odtDetails/sec-odt-p3d60}
 \clearpage
 
 %% ACES 1.0 Output - DCDM
-\renewcommand{\transformID}{\texttt{\seqsplit{ODT.Academy.DCDM.a1.0.3}}}
-\renewcommand{\shortName}{ACES 1.0 Output - DCDM}
 \renewcommand{\id}{dcdm}
 \input{secs-odtDetails/sec-odt-dcdm}
 \clearpage
 
 %% ACES 1.0 Output - DCDM (P3 gamut clip)
-\renewcommand{\transformID}{\texttt{\seqsplit{ODT.Academy.DCDM\_P3D60.a1.0.3}}}
-\renewcommand{\shortName}{ACES 1.0 Output - DCDM (P3 gamut clip)}
 \renewcommand{\id}{dcdmP3clip}
 \input{secs-odtDetails/sec-odt-dcdmP3clip}
 \clearpage
 
 %% ACES 1.0 Output - Rec.709 (D60 sim.)
-\renewcommand{\transformID}{\texttt{\seqsplit{ODT.Academy.Rec709\_D60sim\_100nits\_dim.a1.0.3}}}
-\renewcommand{\shortName}{ACES 1.0 Output - Rec.709 (D60 sim.)}
 \renewcommand{\id}{rec709_d60sim}
 \input{secs-odtDetails/sec-odt-rec709_d60sim}
 \clearpage
 
 %% ACES 1.0 Output - Rec.709
-\renewcommand{\transformID}{\texttt{\seqsplit{ODT.Academy.Rec709\_100nits\_dim.a1.0.3}}}
-\renewcommand{\shortName}{ACES 1.0 Output - Rec.709}
 \renewcommand{\id}{rec709}
 \input{secs-odtDetails/sec-odt-rec709}
 \clearpage
 
 %% ACES 1.0 Output - Rec.2020
-\renewcommand{\transformID}{\texttt{\seqsplit{ODT.Academy.Rec2020\_100nits\_dim.a1.0.3}}}
-\renewcommand{\shortName}{ACES 1.0 Output - Rec.2020}
 \renewcommand{\id}{rec2020_100nit}
 \input{secs-odtDetails/sec-odt-rec2020_100nit}
 \clearpage
 
 %% ACES 1.0 Output - P3-D60 ST2084 (1000 nits)
-\renewcommand{\transformID}{\texttt{\seqsplit{ODT.Academy.P3D60\_ST2084\_1000nits.a1.0.3}}}
-\renewcommand{\shortName}{ACES 1.0 Output - P3-D60 ST2084 (1000 nits)}
 \renewcommand{\id}{p3d60_1000nit}
 \input{secs-odtDetails/sec-odt-p3d60_1000nit}
 \clearpage
 
 %% ACES 1.0 Output - P3-D60 ST2084 (2000 nits)
-\renewcommand{\transformID}{\texttt{\seqsplit{ODT.Academy.P3D60\_ST2084\_2000nits.a1.0.3}}}
-\renewcommand{\shortName}{ACES 1.0 Output - P3-D60 ST2084 (2000 nits)}
 \renewcommand{\id}{p3d60_2000nit}
 \input{secs-odtDetails/sec-odt-p3d60_2000nit}
 \clearpage
 
 %%ACES 1.0 Output - P3-D60 ST2084 (4000 nits)
-\renewcommand{\transformID}{\texttt{\seqsplit{ODT.Academy.P3D60\_ST2084\_4000nits.a1.0.3}}}
-\renewcommand{\shortName}{ACES 1.0 Output - P3-D60 ST2084 (4000 nits)}
 \renewcommand{\id}{p3d60_4000nit}
 \input{secs-odtDetails/sec-odt-p3d60_4000nit}
 \clearpage
 
 %% ACES 1.0 Output - Rec.2020 ST2084 (1000 nits)
-\renewcommand{\transformID}{\texttt{\seqsplit{ODT.Academy.Rec2020\_ST2084\_1000nits.a1.0.3}}}
-\renewcommand{\shortName}{ACES 1.0 Output - Rec.2020 ST2084 (1000 nits)}
 \renewcommand{\id}{rec2020_1000nit}
 \input{secs-odtDetails/sec-odt-rec2020_1000nit}
 \clearpage
 
 %% ACES 1.0 Output - sRGB
-\renewcommand{\transformID}{\texttt{\seqsplit{ODT.Academy.RGBmonitor\_100nits\_dim.a1.0.3}}}
-\renewcommand{\shortName}{ACES 1.0 Output - sRGB}
 \renewcommand{\id}{rgbMonitor}
 \input{secs-odtDetails/sec-odt-rgbMonitor}
 \clearpage
 
 %% ACES 1.0 Output - sRGB (D60 sim)
-\renewcommand{\transformID}{\texttt{\seqsplit{ODT.Academy.RGBmonitor\_D60sim\_100nits\_dim.a1.0.3}}}
-\renewcommand{\shortName}{ACES 1.0 Output - sRGB (D60 sim)}
 \renewcommand{\id}{rgbMonitorD60sim}
 \input{secs-odtDetails/sec-odt-rgbMonitorD60sim}
 \clearpage
