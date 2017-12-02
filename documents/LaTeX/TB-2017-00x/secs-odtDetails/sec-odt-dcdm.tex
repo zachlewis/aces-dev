@@ -6,7 +6,7 @@
 \subsection{Summary}
 \label{subsec:summary-\id}
 
-\lipsum[1-2]  %TODO: Write DCDM ODT Summary
+During the digital intermediate process (DI) to color correct motion pictures it is common to display the images using a DCI compliant digital cinema projector.  The projector is often configured to accept code values corresponding to the projector's red, green and blue color channels.  However, after mastering has been completed, motion pictures are typically distributed as Digital Cinema Packages (DCPs) where the images are encoded as X'Y'Z' as specified in SMPTE ST 428-1:2006.  These images are intended to be viewed on a digital cinema projector that is configured according to the specifications in SMPTE RP 431-2:2007.  The ACES ODT with the transformID \transformID{\id} may be used to generated X'Y'Z' encoded Digital Cinema Distribution Master (DCDM) files for inclusion in a DCP.
 
 %% Transform Identifiers
 \subsection{Transform Identifiers} 
@@ -39,9 +39,13 @@
 \subsection{Notes}
 \label{subsec:notes-\id}
 
-\lipsum[1-2] %TODO: Write DCDM ODT Notes
+It is not recommended to use the ACES ODT with the transformID \transformID{\id} during the DI process.  Rather, the \transformID{\id} is provided to aid in the conversion of the final RGB graded master into a DCDM when more appropriate tools are not available.  In general, it is recommended that RGB master files be produced with the appropriate ODT for the mastering display device and those RGB files be converted to a DCDM using a tool intended to perform DCDM transcodings. This is because simply changing from the mastering display ODT (e.g. \shortName{p3dci}, \shortName{p3d60}, etc.) to \transformID{\id} may produce DCDM values outside the mastering display color gamut.  \transformID{\id} does not limit the colorimetry of the DCDM to that of any particular mastering display.  This may lead to unintended colors being reproduced on an exhibition display with a larger color gamut than the original mastering display. 
 
-\odtScreenshots{Projector code values as displayed on a D$_{65}$ calibrated computer monitor} % TODO:Replace placeholder screenshots
+\transformID{\id} has been provided as a way to generate DCDM files when no transcoding tools are available and when a mastering display with primaries other than P3 was used.  If no transcoding tools are available and the mastering display's primaries and white point correspond to P3-D60, the ACES ODT \transformID{dcdmP3clip} should be used. The details of \transformID{dcdmP3clip} are described in \ref{sec:odt-details-dcdmP3clip}.
+
+When properly configured, images processed with \transformID{\id} and analyzed with a waveform monitor will exhibit the behaviors shown in figures \ref{fig:acesSource-\id}, \ref{fig:hist-\id}, \ref{fig:parade-\id}, \ref{fig:wf-\id}, \ref{fig:vect-\id}.
+
+\odtScreenshots{DCDM code values as displayed on a D$_{65}$ calibrated computer monitor} % TODO:Replace placeholder screenshots
 
 %% Test Values
 \subsection{Test Values}
