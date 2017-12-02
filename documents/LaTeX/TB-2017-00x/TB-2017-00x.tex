@@ -96,6 +96,108 @@
     }[\PackageError{shortName}{Undefined option to shortName: #1}{}]%
 }%
 
+% Transform ID table macro
+\newcommand{\idTable}[2]{
+	\begin{table}[ht!]
+	    \centering
+	    \begin{tabular}{|p{#1in}|p{#2in}|}
+	        \hline
+	        \textbf{Simple Name} & \textbf{TransformID} \\ \hline
+	        \shortName{\id} & \transformID{\id} \\ \hline
+	    \end{tabular}
+	    \caption{Transform Identifiers: \protect\shortName{\id}}
+	    \label{tab:odt-ident-\id}
+	\end{table}
+}
+
+% Screenshot figures macro
+\newcommand{\odtScreenshots}[1]{
+    \begin{figure*}[ht!]
+        \centering
+        \begin{subfigure}[b]{0.475\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/aces}
+            \caption{Original ACES Image}   
+            \label{fig:acesSource-\id}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}[b]{0.475\textwidth}  
+            \centering 
+            \includegraphics[width=\textwidth]{images/\id/\id _histogram}
+            \caption{Histogram}    
+            \label{fig:hist-\id}
+        \end{subfigure}
+        \vskip\baselineskip
+        \begin{subfigure}[b]{0.475\textwidth}   
+            \centering 
+            \includegraphics[width=\textwidth]{images/\id/\id _parade}
+            \caption{Parade}   
+            \label{fig:parade-\id}
+        \end{subfigure}
+        \quad
+        \begin{subfigure}[b]{0.475\textwidth}   
+            \centering 
+            \includegraphics[width=\textwidth]{images/\id/\id _waveform}
+            \caption{Waveform}   
+            \label{fig:wf-\id}
+        \end{subfigure}
+        \begin{subfigure}[b]{0.475\textwidth}   
+            \centering 
+            \includegraphics[width=\textwidth]{images/\id/\id _vectorscope}
+            \caption{Vectorscope}  
+            \label{fig:vect-\id}
+        \end{subfigure}
+        \quad
+        \begin{subfigure}[b]{0.475\textwidth}   
+            \centering 
+            \includegraphics[width=\textwidth]{images/\id/\id _image}
+            \caption{#1}  
+            \label{fig:cv-\id}
+        \end{subfigure}
+        \caption{Scope Screenshots} 
+        \label{fig:screenshots-\id}
+    \end{figure*}
+}
+
+% Test Values Table Macro
+\newcommand{\testValuesTable}{
+	\begin{table}[ht!]
+	        \begin{tabular}{|>{\bfseries\arraybackslash}c|}
+	            \hline
+	            Patch\\
+	            \hline
+	            N1\\\hline
+	            N2\\\hline
+	            N3\\\hline
+	            R\\ \hline
+	            G\\ \hline
+	            B\\ \hline
+	            C\\ \hline
+	            M\\ \hline
+	            Y\\ 
+	            \hline
+	        \end{tabular}%
+	        \csvloop{file=./secs-odtDetails/test_values/test_values_\id.csv, no head, 
+	            before reading=\centering,
+	            tabular={c@{}*8{S[table-format=1.4]|}S[table-format=2.4]|},
+	            table head=\hline & \multicolumn{3}{c|}{\textbf{ACES RGB}} & \multicolumn{3}{c|}{\textbf{Display RGB}} & \multicolumn{3}{c|}{\textbf{Display xyY}}\\
+	            \hline, 
+	            command=&\csvcoli & \csvcolii & \csvcoliii & \csvcoliv & \csvcolv & \csvcolvi & \csvcolvii & \csvcolviii & \csvcolix,
+	            late after line=\\\hline}
+	        \caption{Test Values: \protect\shortName{\id}}
+			\label{tab:testValues-\id}
+	\end{table}
+}
+
+% Test Values Sub-Section Macro
+\newcommand{\testValuesSubSec}{	
+	Table \ref{tab:testValues-\id} contains test values can be used to confirm the proper monitor setup and ODT combination.  Each of the 9 ACES RGB input values should yield the RGB noted display RGB code values (normalized 0-1, full range) when processed through the \transformID{\id}. When driving a properly setup display with the noted display RGB code values, the light from the display should measure with the noted CIE xyY colorimetry.  
+	
+	If the display RGB code values do not match those in the table when using the corresponding input ACES RGB code values, it is likely the wrong ODT is being used.  If the proper display RGB code values are being produced by the ODT, but he measured display colorimetry doesn't match the display xyY code values noted, it is likely the display setup is incorrect.
+	
+	\testValuesTable{}
+}
+
 % Set Document Details
 \doctype{tb} % spec, proc, tb (Specification, Procedure, Technical Bulletin)
 \docname{ACES Output Transform User Guide}
