@@ -12,7 +12,7 @@
 //  primaries that has been set up such that equal neutral RGB code values sent
 //  to the projector produce a chromaticity equal to that of D65 and that the 
 //  peak neutral luminance is 48 nits. The assumed observer adapted white is 
-//  D65, and the viewing environment is a dark surround.
+//  D60, and the viewing environment is a dark surround.
 //
 //  A possible use case for this transform would be mastering for a theatrical
 //  release with a creative white point of D65.
@@ -29,7 +29,7 @@
 //
 // Assumed observer adapted white point:
 //         CIE 1931 chromaticities:    x            y
-//                                     0.3127       0.329
+//                                     0.32168      0.33767
 //
 // Viewing Environment:
 //  Environment specified in SMPTE RP 431-2-2007
