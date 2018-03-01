@@ -1,14 +1,56 @@
+
+// <ACEStransformID>ODT.Academy.P3D65_108nits_7.2nits_ST2084.a1.0.3</ACEStransformID>
+// <ACESuserName>ACES 1.0 Output - P3D65 ST2084 (108 nits)</ACESuserName>
+
+// 
+// Output Transform - P3D65 (108 cd/m^2)
+//
+
+//
+// Summary :
+//  This transform maps ACES onto a P3D65 ST.2084 HDR display calibrated 
+//  to a D65 white point at 108 cd/m^2. The assumed observer adapted white is 
+//  D65, and the viewing environment is that of a dark surround. Mid-gray
+//  luminance is targeted at 7.2 cd/m^2.
+//
+//  A use case for this transform would be mastering for a theatrical release
+//  in Dolby Cinema.
+//
+// Device Primaries : 
+//  Primaries are those specified in Rec. ITU-R BT.2020
+//  CIE 1931 chromaticities:  x         y         Y
+//              Red:          0.68      0.32
+//              Green:        0.265     0.69
+//              Blue:         0.15      0.06
+//              White:        0.3127    0.329     108 cd/m^2
+//              18% Gray:     0.3127    0.329     7.2 cd/m^2
+//
+// Display EOTF :
+//  The reference electro-optical transfer function specified in SMPTE ST 
+//  2084-2014. This transform makes no attempt to address the Annex functions 
+//  which address integer quantization.
+//
+// Assumed observer adapted white point:
+//         CIE 1931 chromaticities:    x            y
+//                                     0.3127       0.329
+//
+// Viewing Environment:
+//  Environment specified in SMPTE RP 431-2-2007
+//
+
+
+
 import "ACESlib.Utilities";
 import "ACESlib.OutputTransforms";
 
 
 
 const float Y_MIN = 0.0001;                     // black luminance (cd/m^2)
-const float Y_MID = 15.0;                       // mid-point luminance (cd/m^2)
-const float Y_MAX = 1000.0;                     // peak white luminance (cd/m^2)
+const float Y_MID = 7.2;                        // mid-point luminance (cd/m^2)
+const float Y_MAX = 108.0;                      // peak white luminance (cd/m^2)
 
-const Chromaticities DISPLAY_PRI = REC2020_PRI; // encoding primaries (device setup)
-const Chromaticities LIMITING_PRI = REC2020_PRI;// limiting primaries
+const Chromaticities DISPLAY_PRI = P3D65_PRI;   // encoding primaries (device setup)
+const Chromaticities LIMITING_PRI = P3D65_PRI;  // limiting primaries
 
 const int EOTF = 0;                             // 0: ST-2084 (PQ)
                                                 // 1: BT.1886 (Rec.709/2020 settings) 
