@@ -1,7 +1,7 @@
 import "ACESlib.Transform_Common";
 import "ACESlib.RRT_Common";
 import "ACESlib.ODT_Common";
-import "ssts";
+import "ACESlib.SSTS";
 
 
 struct OutputParameters
