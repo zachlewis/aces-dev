@@ -4,19 +4,6 @@ import "ACESlib.ODT_Common";
 import "ACESlib.SSTS";
 
 
-// struct OutputParameters
-// {
-//     float Y_min; float Y_mid; float Y_max;
-//     Chromaticities encoding_primaries;
-//     Chromaticities limiting_primaries;
-//     int eotf;  // 0: ST-2084 (PQ), 1: BT.1886 (Rec.709/2020 settings), 2: sRGB (mon_curve w/ presets), 3: gamma 2.6
-//     int surround_type; // 0: dark, 1: dim
-//     bool forceBlack; //
-//     bool d60sim;
-//     bool legal_range;
-// };
-
-
 
 float[3] limit_to_primaries
 ( 
@@ -71,6 +58,7 @@ float[3] outputTransform
     float XYZ_2_DISPLAY_PRI_MAT[4][4] = XYZtoRGB( DISPLAY_PRI, 1.0);
 
     // NOTE: This is a bit of a hack - probably a more direct way to do this.
+    // Fix in future version
     TsParams PARAMS_DEFAULT = init_TsParams( Y_MIN, Y_MAX);
     float expShift = log2(inv_ssts(Y_MID, PARAMS_DEFAULT))-log2(0.18);
     TsParams PARAMS = init_TsParams( Y_MIN, Y_MAX, expShift);
@@ -81,7 +69,7 @@ float[3] outputTransform
     // Apply the tonescale independently in rendering-space RGB
     float rgbPost[3] = ssts_f3( rgbPre, PARAMS);
 
-    // At this point AP1, absolute luminance
+    // At this point data encoded AP1, scaled absolute luminance (cd/m^2)
 
     // Scale to linear code value
 //     if (EOTF != 0) {  // ST-2084 (PQ)
@@ -93,36 +81,44 @@ float[3] outputTransform
     float XYZ[3] = mult_f3_f44( linearCV, AP1_2_XYZ_MAT);
 
     // Apply gamma adjustment to compensate for dim surround
+    // NOTE: This section would only apply for SDR. This is a placeholder block.
+    // TOD0: Come up with new surround compensation algorithm, applicable across
+    // all dynamic ranges and supporting dark/dim/normal surround.
 //     if (SURROUND == 1) {
 //         print( "\nDim surround\n");
 //         XYZ = dark_to_dim( XYZ);
 //     }
 
-    // Gamut limit to mastering primaries
-//     if (LIMITING_PRI != DISPLAY_PRI) {
-//         XYZ = limit_to_primaries( XYZ, LIMITING_PRI); 
-//     }
+    // Gamut limit to limiting primaries
+    // NOTE: Would be nice to just say
+    //    if (LIMITING_PRI != DISPLAY_PRI)
+    // but you can't because Chromaticities do not work with bool comparison operator
+    // For now, limit no matter what.
+    XYZ = limit_to_primaries( XYZ, LIMITING_PRI); 
     
     // Apply CAT from ACES white point to assumed observer adapted white point
+    // TODO: Needs to expand from just supporting D60 sim to allow for any
+    // observer adapted white point.
     if (D60_SIM == false) {
         if ((DISPLAY_PRI.white[0] != AP0.white[0]) &
             (DISPLAY_PRI.white[1] != AP0.white[1])) {
             float CAT[3][3] = calculate_cat_matrix( AP0.white, DISPLAY_PRI.white);
-//             print( "\nCAT applied.\n");
             XYZ = mult_f3_f33( XYZ, D60_2_D65_CAT);
         }
     }
 
-    // CIE XYZ to encoding primaries
+    // CIE XYZ to display encoding primaries
     linearCV = mult_f3_f44( XYZ, XYZ_2_DISPLAY_PRI_MAT);
 
-    // Scale to avoid clipping when device calibration is different from D60. To simulate 
-    // D60, unequal code values are sent to the display. 
+    // Scale to avoid clipping when device calibration is different from D60. 
+    // To simulate D60, unequal code values are sent to the display.
+    // TODO: Needs to expand from just supporting D60 sim to allow for any
+    // observer adapted white point.
     if (D60_SIM == true) {
         /* TODO: The scale requires calling itself. Scale is same no matter the luminance.
-           Currently precalculated for D65, DCI, and E. If DCI, roll_white_fwd is used also.
+           Currently precalculated for D65, DCI. If DCI, roll_white_fwd is used also.
+           This needs a more complex algorithm to handle all cases.
         */
-//         print( "\n", DISPLAY_PRI.white[0], "\n", DISPLAY_PRI.white[1], "\n");
         float SCALE = 1.0;
         if ((DISPLAY_PRI.white[0] == 0.3127) & 
             (DISPLAY_PRI.white[1] == 0.329)) { // D65
@@ -140,7 +136,8 @@ float[3] outputTransform
 
 
     // Clip values < 0 (i.e. projecting outside the display primaries)
-    // Note: P3 red and values close to it fall outside of Rec.2020 green-red boundary
+    // NOTE: P3 red and values close to it fall outside of Rec.2020 green-red 
+    // boundary
     linearCV = clamp_f3( linearCV, 0., HALF_POS_INF);
 
     // EOTF
@@ -153,12 +150,15 @@ float[3] outputTransform
     // 5: HLG
     float outputCV[3];
     if (EOTF == 0) {  // ST-2084 (PQ)
+        // NOTE: This is a kludgy way of ensuring a PQ code value of 0. Ideally,
+        // luminance would map directly to code value, but colorists don't like
+        // that. Might just need the tonescale to go darker so that darkest
+        // values through the tone scale quantize to code value of 0.
         if (STRETCH_BLACK == true) {
             outputCV = Y_2_ST2084_f3( clamp_f3( linCV_2_Y_f3(linearCV, Y_MAX, 0.0), 0.0, HALF_POS_INF) );
         } else {
             outputCV = Y_2_ST2084_f3( linCV_2_Y_f3(linearCV, Y_MAX, Y_MIN) );        
         }
-//         outputCV = Y_2_ST2084_f3( linearCV);
     } else if (EOTF == 1) { // BT.1886 (Rec.709/2020 settings)
         outputCV = bt1886_r_f3( linearCV, 2.4, 1.0, 0.0);
     } else if (EOTF == 2) { // sRGB (mon_curve w/ presets)
@@ -168,6 +168,8 @@ float[3] outputTransform
     } else if (EOTF == 4) { // linear
         outputCV = linCV_2_Y_f3(linearCV, Y_MAX, Y_MIN);
     } else if (EOTF == 5) { // HLG
+        // NOTE: HLG just maps ST.2084 output to HLG encoding. 
+        // TODO: Restructure if/else tree to minimize this redundancy.
         if (STRETCH_BLACK == true) {
             outputCV = Y_2_ST2084_f3( clamp_f3( linCV_2_Y_f3(linearCV, Y_MAX, 0.0), 0.0, HALF_POS_INF) );
         }
@@ -198,6 +200,7 @@ float[3] invOutputTransform
     float DISPLAY_PRI_2_XYZ_MAT[4][4] = RGBtoXYZ( DISPLAY_PRI, 1.0);
 
     // NOTE: This is a bit of a hack - probably a more direct way to do this.
+    // Update in accordance with forward algorithm.
     TsParams PARAMS_DEFAULT = init_TsParams( Y_MIN, Y_MAX);
     float expShift = log2(inv_ssts(Y_MID, PARAMS_DEFAULT))-log2(0.18);
     TsParams PARAMS = init_TsParams( Y_MIN, Y_MAX, expShift);
@@ -239,7 +242,7 @@ float[3] invOutputTransform
     if (D60_SIM == true) {
         /* TODO: The scale requires calling itself. Need an algorithm for this.
             Scale is same no matter the luminance.
-            Currently using precalculated values for D65, DCI, and E.
+            Currently using precalculated values for D65, DCI.
             If DCI, roll_white_fwd is used also.
         */
         float SCALE = 1.0;
