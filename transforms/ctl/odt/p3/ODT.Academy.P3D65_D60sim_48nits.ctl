@@ -14,9 +14,6 @@
 //  peak neutral luminance is 48 nits. The assumed observer adapted white is 
 //  D60, and the viewing environment is a dark surround.
 //
-//  A possible use case for this transform would be mastering for a theatrical
-//  release with a creative white point of D65.
-//
 // Device Primaries : 
 //  CIE 1931 chromaticities:  x         y         Y
 //              Red:          0.68      0.32
