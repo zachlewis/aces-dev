@@ -8,17 +8,27 @@ import "ACESlib.OutputTransforms";
 // in Section 7 of ITU-R BT.2390-0. 
 
 
-const OutputParameters OT_PARAMS = 
-{
-    0.0001, 15.0, 1000.0,   // black luminance, mid-point luminance, peak white luminance
-    {{ 0.708, 0.292},{ 0.17, 0.797},{ 0.131, 0.046},{ 0.3127, 0.329}},  // encoding primaries
-    {{ 0.708, 0.292},{ 0.17, 0.797},{ 0.131, 0.046},{ 0.3127, 0.329}},  // limiting primaries
-    0,      // 0: ST-2084 (PQ), 1: BT.1886 (Rec.709/2020 settings), 2: sRGB (mon_curve w/ presets), 3: gamma 2.6, 4: linear (no EOTF)
-    0,      // 0: dark, 1: dim, 2, 2: normal
-    true,  // stretch black luminance to a PQ code value of 0
-    false,  // D60_sim
-    false   // smpte_range
-};
+const float Y_MIN = 0.0001;                     // black luminance (cd/m^2)
+const float Y_MID = 15.0;                       // mid-point luminance (cd/m^2)
+const float Y_MAX = 1000.0;                     // peak white luminance (cd/m^2)
+
+const Chromaticities DISPLAY_PRI = REC2020_PRI; // encoding primaries (device setup)
+const Chromaticities LIMITING_PRI = REC2020_PRI;// limiting primaries
+
+const int EOTF = 5;                             // 0: ST-2084 (PQ)
+                                                // 1: BT.1886 (Rec.709/2020 settings) 
+                                                // 2: sRGB (mon_curve w/ presets)
+                                                // 3: gamma 2.6
+                                                // 4: linear (no EOTF)
+                                                // 5: HLG
+
+const int SURROUND = 0;                         // 0: dark
+                                                // 1: dim
+                                                // 2: normal
+
+const bool STRETCH_BLACK = true;                // stretch black luminance to a PQ code value of 0
+const bool D60_SIM = false;                       
+const bool LEGAL_RANGE = false;
 
 
 void main
@@ -35,11 +45,17 @@ void main
 {
     float aces[3] = {rIn, gIn, bIn};
 
-    float cv[3] = outputTransform( aces, OT_PARAMS);
+    float cv[3] = outputTransform( aces, Y_MIN,
+                                         Y_MID,
+                                         Y_MAX,
+                                         DISPLAY_PRI,
+                                         LIMITING_PRI,
+                                         EOTF,
+                                         SURROUND,
+                                         STRETCH_BLACK,
+                                         D60_SIM,
+                                         LEGAL_RANGE );
 
-    // Convert PQ signal to HLG, as detailed in Sec. 7 of ITU-R BT.2390
-    cv = ST2084_2_HLG_1000nits( cv);
-    
     rOut = cv[0];
     gOut = cv[1];
     bOut = cv[2];
