@@ -457,3 +457,49 @@ float[3] ST2084_2_Y_f3( float in[3])
 
   return out;
 }
+
+
+// Conversion of PQ signal to HLG, as detailed in Section 7 of ITU-R BT.2390-0
+float[3] ST2084_2_HLG_1000nits( float PQ[3]) 
+{
+    // ST.2084 EOTF (non-linear PQ to display light)
+    float displayRGB_lin[3] = ST2084_2_Y_f3( PQ);
+
+    // HLG Inverse EOTF (i.e. HLG inverse OOTF followed by the HLG OETF)
+    // HLG Inverse OOTF (display linear to scene linear)
+    float Y_d = 0.2627*displayRGB_lin[0] + 0.6780*displayRGB_lin[1] + 0.0593*displayRGB_lin[2];
+    const float L_w = 1000.;
+    const float L_b = 0.;
+    const float alpha = (L_w-L_b);
+    const float beta = L_b;
+    const float gamma = 1.2;
+    
+    float sceneRGB_lin[3];
+    sceneRGB_lin[0] = pow( (Y_d-beta)/alpha, (1-gamma)/gamma) * ((displayRGB_lin[0]-beta)/alpha);
+    sceneRGB_lin[1] = pow( (Y_d-beta)/alpha, (1-gamma)/gamma) * ((displayRGB_lin[1]-beta)/alpha);
+    sceneRGB_lin[2] = pow( (Y_d-beta)/alpha, (1-gamma)/gamma) * ((displayRGB_lin[2]-beta)/alpha);
+
+    // HLG OETF (scene linear to non-linear signal value)
+    const float a = 0.17883277;
+    const float b = 0.28466892; // 1.-4.*a;
+    const float c = 0.55991073; // 0.5-a*log(4.*a);
+
+    float RGB_HLG[3];
+    if (sceneRGB_lin[0] <= 1./12) {
+        RGB_HLG[0] = sqrt(3.*sceneRGB_lin[0]);
+    } else {
+        RGB_HLG[0] = a*log(12.*sceneRGB_lin[0]-b)+c;
+    }
+    if (sceneRGB_lin[1] <= 1./12) {
+        RGB_HLG[1] = sqrt(3.*sceneRGB_lin[1]);
+    } else {
+        RGB_HLG[1] = a*log(12.*sceneRGB_lin[1]-b)+c;
+    }
+    if (sceneRGB_lin[2] <= 1./12) {
+        RGB_HLG[2] = sqrt(3.*sceneRGB_lin[2]);
+    } else {
+        RGB_HLG[2] = a*log(12.*sceneRGB_lin[2]-b)+c;
+    }
+
+    return RGB_HLG;
+}
