@@ -1,21 +1,15 @@
 ## Academy Color Encoding System Developer Resources ##
 
-The Academy Color Encoding System (ACES) is a set of components that facilitates
-a wide range of motion picture and television workflows while eliminating the ambiguity of
-legacy file formats. The system is designed to support both all-digital and
-hybrid film-digital motion picture workflows.
+The Academy Color Encoding System (ACES) is a set of components that facilitates a wide range of motion picture and television workflows while eliminating the ambiguity of legacy file formats.  The system is designed to support both all-digital and hybrid film-digital motion picture workflows.
 
 The basic ACES components are:
 
 * Color encoding and metric specifications, file format specifications, color
 transformations, and an open source reference implementation 
-* A set of reference images and calibration targets for film scanners and
-recorders 
+* A set of reference images and calibration targets for film scanners and recorders 
 * Documentation on the system and software tools
 
-This toolkit is intended to serve as a distribution mechanism for key components
-of the system, including the reference implementation transforms, reference
-images, and documentation.
+This toolkit is intended to serve as a distribution mechanism for key components of the system, including the reference implementation transforms, reference images, and documentation.
 
 ### Package Contents ###
  
@@ -25,44 +19,44 @@ images, and documentation.
 
 ### Changes from Previous Release ###
 
-Though the "master" branch is 1.0.3, the current major version of ACES remains 1.0. The 1.0.3 
-"patch" release adds features, but does not change the look, or modify the existing core transforms 
-beyond addressing reported bugs since the major version release. 
+Though the "master" branch is 1.1, the current major version of ACES remains 1.0. The 1.1 update adds a number of transforms but does not change the look or modify the existing core transforms (beyond addressing reported bugs and/or inconsequential formatting/whitespace changes).
 
-As always, you should check the hotfixes and dev branches for the latest bug fixes and 
-new features that will ultimately be rolled into a future version of ACES. These 
-improvements will continue to be staged on the dev branch for testing as they become 
-available.
+As always, you should check the hotfixes and dev branches for the latest bug fixes and new features that will ultimately be rolled into a future version of ACES.  These improvements will continue to be staged on the dev branch for testing as they become available.
 
-Included in ACES 1.0.3:
+Included in ACES 1.1:
 
-  * New Features: 
-     * Add new ACEScct color correction working space transforms
-     * Add ACEScct specification document
-     * Add Sony S-Log3 / S-Gamut3 IDTs
-     * Add functions to convert between premultiplied and straight alpha
-     * Add D65 RGB Monitor ODT
-     * Add new reference images for new transforms
-  * Bug Fixes:
-     * Update copy and paste typo in ACESproxy document
-     * Update ODT functions legal range input variable usage to avoid a situation where it may not execute as intended.
-     * Update miscellaneous to local variables in utility functions to avoid clashes with existing global variables
-     * Update miscellaneous minor errors in Transform IDs
-     * Update miscellaneous transforms missing ACESuserName Tags
-  * Other:
-     * Update IDT READMEs to reflect latest manufacturer provided information including broken links
-     * Restructure utility and lib functions directories for use clarification
-     * Restructure directories to consolidate CSC transforms
-     * Update equation variables names in ACEScc and ACESproxy documents for greater clarity 
-     * Miscellaneous math simplifications in utility functions
-     * Miscellaneous white space fixes in CTL transforms
-     * Miscellaneous typo fixes in CTL transform comments
-     * Remove version number from CTL file names
-     * Add Python script to rename CTL files based on TransformID
-     * Update all documents to remove version numbers and use date as unique identifier
-     * Update all documents to use vector logo
-     * Update reference images to reflect code changes
-     * Update README and CHANGELOG
+* New Transforms: 
+    * P3 ODTs:
+        * P3D65 (and inverse)
+        * P3D65 "D60 simulation" (i.e. D60 adapted white point) (and inverse)
+        * P3DCI "D65 simulation" (i.e. D65 adapted white point) (and inverse)
+        * P3D65 limited to Rec.709 (inverse not required)
+    * Rec.2020 ODTs:
+        * Rec.2020 limited to Rec.709 (inverse not required)
+        * Rec.2020 limited to P3D65 (inverse not required)
+    * DCDM ODT:
+        * DCDM with D65 adapted white point and limited to P3D65 (and inverse)
+    * ACESlib:
+        * SSTS: code for the Single Stage Tone Scale
+        * OutputTransform: beginning of modules needed for parameterizing Output Transforms
+    * HDR Output Transforms (RRT+ODT):
+        * P3D65 (108 cd/m^2) ST.2084 - designed for use in Dolby Cinema (and inverse)
+        * Rec.2020 (1000 cd/m^2) ST.2084 (and inverse)
+        * Rec.2020 (2000 cd/m^2) ST.2084 (and inverse)
+        * Rec.2020 (4000 cd/m^2) ST.2084 (and inverse)
+        * Rec.2020 (1000 cd/m^2) HLG (and inverse)
+    * Add new reference images for new transforms
+* Bug Fixes:
+    * Update copy and paste typo in ACESproxy document
+    * Update ODT functions legal range input variable usage to avoid a situation where it may not execute as intended.
+    * Update miscellaneous to local variables in utility functions to avoid clashes with existing global variables
+    * Update miscellaneous minor errors in Transform IDs
+    * Update miscellaneous transforms missing ACESuserName Tags
+* Other:
+    * Rename DCDM_P3D60 to DCDM_P3D60limited
+    * Rename P3DCI to P3DCI_D60sim
+    * Miscellaneous white space fixes in CTL transforms
+    * Miscellaneous typo fixes in CTL transform comments
 
 For a more detailed list of changes see the [CHANGELOG](./CHANGELOG.md) and in the [commit history](https://github.com/ampas/aces-dev/commits/master).
 
@@ -83,25 +77,15 @@ Individual files now conform to the ACES System Versioning Specification.  Detai
 
 __Master Branch__
  
-The current release version of ACES can always be found at the HEAD of the
-master branch.  The master branch contains no intermediate commits and all commits on
-the master branch are tagged to represent a release of ACES.
+The current release version of ACES can always be found at the HEAD of the master branch.  The master branch contains no intermediate commits and all commits on the master branch are tagged to represent a release of ACES.
 
 __Dev Branch__
  
-Intermediate commits between releases will be staged on the dev branch.  Commits staged 
-on the dev branch, but not yet merged into the master, should be considered as "planned 
-for inclusion" in the next release version.  Commits on the dev branch will ultimately 
-be merged into the master branch as part of a future release.
+Intermediate commits between releases will be staged on the dev branch.  Commits staged on the dev branch, but not yet merged into the master, should be considered as "planned for inclusion" in the next release version.  Commits on the dev branch will ultimately be merged into the master branch as part of a future release.
 
 __Hotfixes Branch__
 
-In some instances it may be necessary to create a hotfixes branch.  The hotfixes
-branch will include important, but not fully tested, fixes for bugs found in a
-particular release.  Hotfixes should only be implemented by developers if the bug they 
-are intending to correct is encountered in the course of production and is deemed to be 
-a barrier to using a particular ACES release.  Hotfixes, once fully tested, will
-be merged into the dev branch, and ultimately the master.
+In some instances it may be necessary to create a hotfixes branch.  The hotfixes branch will include important, but not fully tested, fixes for bugs found in a particular release.  Hotfixes should only be implemented by developers if the bug they are intending to correct is encountered in the course of production and is deemed to be a barrier to using a particular ACES release.  Hotfixes, once fully tested, will be merged into the dev branch, and ultimately the master.
 
 ## Prerequisites ##
 

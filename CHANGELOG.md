@@ -1,3 +1,33 @@
+**Version 1.1 (March xx, 2018):**
+
+* New transforms and CTL: 
+    * P3 ODTs:
+        * P3D65 (and inverse)
+        * P3D65 "D60 simulation" (i.e. D60 adapted white point) (and inverse)
+        * P3DCI "D65 simulation" (i.e. D65 adapted white point) (and inverse)
+        * P3D65 limited to Rec.709 (inverse not required)
+    * Rec.2020 ODTs:
+        * Rec.2020 limited to Rec.709 (inverse not required)
+        * Rec.2020 limited to P3D65 (inverse not required)
+    * DCDM ODT:
+        * DCDM with D65 adapted white point and limited to P3D65 (and inverse)
+    * ACESlib:
+        * SSTS: code for the Single Stage Tone Scale
+        * OutputTransform: beginning of modules needed for parameterizing Output Transforms
+    * HDR Output Transforms (RRT+ODT):
+        * P3D65 (108 cd/m^2) ST.2084 - designed for use in Dolby Cinema (and inverse)
+        * Rec.2020 (1000 cd/m^2) ST.2084 (and inverse)
+        * Rec.2020 (2000 cd/m^2) ST.2084 (and inverse)
+        * Rec.2020 (4000 cd/m^2) ST.2084 (and inverse)
+        * Rec.2020 (1000 cd/m^2) HLG (and inverse)
+    * Add new reference images for new transforms
+* Other:
+    * Rename two existing transforms for clarity:
+        * DCDM_P3D60 to DCDM_P3D60limited
+        * Rename P3DCI to P3DCI_D60sim
+    * Miscellaneous white space fixes in CTL transforms
+    * Miscellaneous typo fixes in CTL transform comments
+
 **Version 1.0.3 (September 20, 2016):**
 
   * New Features: 
