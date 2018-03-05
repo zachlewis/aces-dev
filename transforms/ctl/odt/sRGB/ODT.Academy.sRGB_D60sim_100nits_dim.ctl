@@ -31,6 +31,7 @@
 // Display EOTF :
 //  The reference electro-optical transfer function specified in 
 //  IEC 61966-2-1:1999.
+//  Note: This EOTF is *NOT* gamma 2.2
 //
 // Signal Range:
 //    This transform outputs full range code values.
@@ -57,6 +58,7 @@ import "ACESlib.Tonescales";
 const Chromaticities DISPLAY_PRI = REC709_PRI;
 const float XYZ_2_DISPLAY_PRI_MAT[4][4] = XYZtoRGB(DISPLAY_PRI,1.0);
 
+// NOTE: The EOTF is *NOT* gamma 2.4, it follows IEC 61966-2-1:1999
 const float DISPGAMMA = 2.4; 
 const float OFFSET = 0.055;
 

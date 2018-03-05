@@ -22,9 +22,10 @@
         * Rec.2020 (1000 cd/m^2) HLG (and inverse)
     * Add new reference images for new transforms
 * Other:
-    * Rename two existing transforms for clarity:
+    * Rename some existing transforms for clarity:
         * DCDM_P3D60 to DCDM_P3D60limited
         * Rename P3DCI to P3DCI_D60sim
+        * Rename RGBmonitor to sRGB_100nits
     * Miscellaneous white space fixes in CTL transforms
     * Miscellaneous typo fixes in CTL transform comments
 
