@@ -1,0 +1,52 @@
+% Section Start
+\section[P3-D60]{\shortName{\id}}
+\label{sec:odt-details-\id}
+
+%% Summary
+\subsection{Summary}
+\label{subsec:summary-\id}
+
+It is common in the digital intermediate process (DI) to color correct motion pictures and episodic television shows while displaying the images using a DCI compliant digital cinema projector. DCI compliant digital cinema projectors have a simplified setup using a projector configuration file (PCF) that contains all the relevant projector settings and can often be loaded at the press of a button. The color calibration the projector is specified in the PCF using a Target Color Gamut Document (TCGD) that includes aims of the calibrated display color primaries and white point chromaticity. The recommended PCF to be used with digital cinema projectors and ACES-based workflows is the ``P3-D60'' PCF \textbf{(add link)}, or a PCF based on it, that includes an TCGD with a white point of \whitepoint{aces}. Using this PCF, the projector will be configured such that equal red, green, and blue projector code values (CV \rgbequal{}) will produce the chromaticity \whitepoint{aces} (aka D$_{60}$). With the projector configured in this manner it is recommended that ACES ODT with the transformID \transformID{\id} be used.
+
+%% Transform Identifiers
+\subsection{Transform Identifiers} 
+\label{subsec:odt-ident-\id}
+\idTable{1.5}{3}
+
+%% Recommended Display Setup
+\subsection{Recommended Display and Setup}
+\label{subsec:setup-\id}
+
+\begin{table}[ht!]
+    \centering
+        \begin{tabular}{|p{1.5in}|p{3in}|}
+            \hline
+            \textbf{Parameter} 		& 	\textbf{Setting} 				 		\\ \hline
+            Display Type 			&	Digital Cinema compliant projector 		\\ \hline
+            Display Dynamic Range 	& 	$\geq$ 2,000:1 to $\sim$10,000:1 		\\ \hline
+            Display Max Luminance 	& 	\nits{48}								\\ \hline
+            TCGD 					& 	?? DCI D60 lookup name?? 				\\ \hline %TODO Find P3 DCI TCGD Filename
+            Signal 					&	RGB 4:4:4 Full Range					\\ \hline
+            Viewing Environment 	& 	Dark 									\\ \hline
+            Bit Depth 				& 	12-bit 									\\ \hline 
+    	\end{tabular}
+    \caption{Display Setup: \protect\shortName{\id}} 
+    \label{tab:setup-\id}
+\end{table}
+
+%% Notes
+\subsection{Notes}
+\label{subsec:notes-\id}
+
+The ``P3-D60'' PCF is not typically included by the manufacturer by default in most digital cinema projectors. It must be downloaded an installed in the projector using the appropriate projector configuration software (e.g. DCP Librarian). Once the PCF is installed and activate neutral ACES values (ACES \rgbequal{}) processed through the \transformID{\id} transform will produce equal red, green and blue projector code values, will have equal levels on the waveform, will land in the middle of the vector scope, will appear neutral on a D$_{65}$ calibrated computer monitor, and will produce the chromaticity \whitepoint{aces} (aka D60) on the projection screen (Figure \ref{fig:acesSource-\id}, \ref{fig:hist-\id}, \ref{fig:parade-\id}, \ref{fig:wf-\id}, \ref{fig:vect-\id})
+
+Often the resulting projector code values are saved into a file an converted using specialized tools (e.g. R\&S Clipster, Colorfront Transkoder, etc.) into DCDMs and/or a DPC for distribution. It is important to note that many conversion tool assume that equal red, green, and blue projector code values are intended to produce a chromaticity of \whitepoint{dci} on the screen. Converting the projector code values from \transformID{\id} using tools that assume the white is encoded as \whitepoint{dci} will result in incorrect DCDM and/or DCP files. The tools must explicitly be capable of converting projector code values where equal red, green, and blue projector code values are intended to produce a chromaticity \whitepoint{aces} (aka D$_{60}$) on the screen.
+
+The image on the projector screen will match nearly exactly when using \transformID{\id} and \transformID{p3dci} with their corresponding recommended display and setup.
+
+\odtScreenshots{Projector code values as displayed on a D$_{65}$ calibrated computer monitor}
+
+%% Test Values%%
+%% Test Values
+\subsection{Test Values}
+\testValuesSubSec{}

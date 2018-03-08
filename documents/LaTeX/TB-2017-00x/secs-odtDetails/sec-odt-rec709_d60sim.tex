@@ -1,0 +1,54 @@
+% Section Start
+\section[Rec709 (D60 sim)]{\shortName{\id}}
+\label{sec:odt-details-\id}
+
+%% Summary
+\subsection{Summary}
+\label{subsec:summary-\id}
+
+In theatrical workflows it is often desirable to preview the final look of the image on set as it is expected to appear during final color grading and mastering.  Using ACES based workflows it is likely the default chromaticity of neutrals will be \whitepoint{aces} (aka D60) on the DI projection screen regardless of the projector's calibration white point.  In order to properly preview this on-set it is recommended a Rec.709 SDR reference monitor with a calibration white point of \whitepoint{d65} (aka D$_{65}$) be used in conjunction with the ACES Output Transform \transformID{\id}.
+
+%% Transform Identifiers
+\subsection{Transform Identifiers} 
+\label{subsec:odt-ident-\id}
+\idTable{1.5}{3}
+
+%% Recommended Display Setup
+\subsection{Recommended Display and Setup}
+\label{subsec:setup-\id}
+
+\begin{table}[ht!]
+    \centering
+        \begin{tabular}{|p{1.5in}|p{3in}|}
+            \hline
+            \textbf{Parameter} 		& 	\textbf{Setting} 				 		\\ \hline
+            Display Type 			&	Reference Broadcast Monitor				\\ \hline
+            Display Max Luminance 	& 	\nits{100}								\\ \hline
+            Primaries	 			& 	ITU-R BT.709							\\ \hline
+            White Point	 			& 	D$_{65}$ (\whitepoint{d65})				\\ \hline
+            EOTF					& 	ITU-R BT.1886		 					\\ \hline
+            Signal 					&	RGB 4:4:4 (Full range or Legal Range)	\\ \hline
+            Viewing Environment 	& 	Dim Surround							\\ \hline
+            Bit Depth 				& 	10 or 12-bit	 						\\ \hline 
+    \end{tabular}
+    \caption{Display Setup: \protect\shortName{\id}} 
+    \label{tab:setup-\id}
+\end{table}
+
+%% Notes
+\subsection{Notes}
+\label{subsec:notes-\id}
+
+Using a Rec.709 SDR reference monitor with a calibration white point of D$_{65}$ will cause equal red, green, and blue display code values to produce the chromaticity \whitepoint{d65} on the display screen. However, the \transformID{\id} transform is configured such that neutral ACES source file values (ACES \rgbequal) will produce non-equal display code values. The chromaticity of produced on screen by those non-equal projector code values will be \whitepoint{aces} (aka D60).  This is intentional and designed such that the image appearance on the on-set Rec.709 SDR reference monitor will mimic that of the final image displayed in DI mastering.
+
+It's important to note that the image on projection screen may look less blue then some video based workflows. This will also be reflected on the color corrector scopes when neutral ACES values sent through the \transformID{\id} transform. (Figure \ref{fig:acesSource-\id}, \ref{fig:hist-\id}, \ref{fig:parade-\id}, \ref{fig:wf-\id}, \ref{fig:vect-\id}) For instance, neutral ACES values processed through \transformID{\id} will not have equal levels on the waveform, nor will they land in the middle of the vector scope. This behavior was intentional. The image may also have a slightly warm cast on a computer monitor such as the one used for the color corrector user interface if that monitor is calibrated to a D$_{65}$ white point when compared to images generated using some traditional video workflows. (Figure \ref{fig:cv-p3dci}) In the ACES system, the behavior of mimicking the default DI look in the on-set environment is known as ``D60 sim''. Due to this ``D60 sim'' behavior the maximum output screen luminance of neutral ACES values will be slightly less than the maximum luminance produced by display code values red = 1, green = 1, blue = 1 (e.g. $\mathtt{\sim}$\nits{100}).
+
+When using the correct Rec.709 reference display setup and corresponding ODT, the image on the projector screen will have a similar appearance to that of Application \ref{sec:odt-details-p3dci} and Application \ref{sec:odt-details-p3d60}.  However, the images will not measure exactly the same due the fact the Rec.709 reference display's max luminance is \nits{100} vs \nits{48} in DI, and the \transformID{\id} compensates for a dim viewing environment.
+
+\odtScreenshots{Projector code values as displayed on a D$_{65}$ calibrated computer monitor}
+
+%% Test Values
+\subsection{Test Values}
+\label{subsec:testValues-\id}
+
+\testValuesSubSec{}

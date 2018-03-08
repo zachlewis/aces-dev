@@ -1,0 +1,50 @@
+% Section Start
+\section[P3-D60 ST2084 (2000 nits)]{\shortName{\id}}
+\label{sec:odt-details-\id}
+
+%% Summary
+\subsection{Summary}
+\label{subsec:summary-\id}
+
+In HDR content mastering applications it is sometimes common to use an HDR reference monitor configured with a peak luminance of \nits{2000}, P3 device primaries, and a white point chromaticity of \whitepoint{aces}, an EOTF conforming to SMPTE ST2084 (aka PQ).  The ODT with the transformID \transformID{\id} is recommended for this application.
+
+%% Transform Identifiers
+\subsection{Transform Identifiers} 
+\label{subsec:odt-ident-\id}
+\idTable{1.5}{3.25}
+
+%% Recommended Display Setup
+\subsection{Recommended Display and Setup}
+\label{subsec:setup-\id}
+
+\begin{table}[ht!]
+    \centering
+        \begin{tabular}{|p{1.5in}|p{3in}|}
+            \hline
+            \textbf{Parameter} 		& 	\textbf{Setting} 				 		\\ \hline
+            Display Type 			&	HDR Reference Monitor					\\ \hline
+            Display Max Luminance 	& 	\nits{2000}								\\ \hline
+            Primaries	 			& 	P3										\\ \hline
+            White Point	 			& 	D60 (\whitepoint{aces})					\\ \hline
+            EOTF					& 	SMPTE ST2084		 					\\ \hline
+            Signal 					&	RGB 4:4:4 (Full range or Legal Range)	\\ \hline
+            Viewing Environment 	& 	Dim Surround 							\\ \hline
+            Bit Depth 				& 	10 or 12-bit	 						\\ \hline 
+    \end{tabular}
+    \caption{Display Setup: \protect\shortName{\id}} 
+    \label{tab:setup-\id}
+\end{table}
+
+%% Notes
+\subsection{Notes}
+\label{subsec:notes-\id}
+
+\lipsum[1-2] %TODO: Write P3D60 2000nit Notes
+
+\odtScreenshots{Projector code values as displayed on a D$_{65}$ calibrated computer monitor}
+
+%% Test Values
+\subsection{Test Values}
+\label{subsec:testValues-\id}
+
+\testValuesSubSec{}
