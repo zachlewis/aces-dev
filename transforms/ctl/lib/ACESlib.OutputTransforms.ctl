@@ -1,3 +1,13 @@
+
+// <ACEStransformID>ACESlib.OutputTransforms.a1.1</ACEStransformID>
+// <ACESuserName>ACES 1.0 Lib - Output Transforms</ACESuserName>
+
+//
+// Contains functions used for forward and inverse Output Transforms (RRT+ODT) 
+//
+
+
+
 import "ACESlib.Transform_Common";
 import "ACESlib.RRT_Common";
 import "ACESlib.ODT_Common";
@@ -57,8 +67,10 @@ float[3] outputTransform
 {
     float XYZ_2_DISPLAY_PRI_MAT[4][4] = XYZtoRGB( DISPLAY_PRI, 1.0);
 
-    // NOTE: This is a bit of a hack - probably a more direct way to do this.
-    // Fix in future version
+    /* 
+        NOTE: This is a bit of a hack - probably a more direct way to do this.
+        TODO: Fix in future version
+    */
     TsParams PARAMS_DEFAULT = init_TsParams( Y_MIN, Y_MAX);
     float expShift = log2(inv_ssts(Y_MID, PARAMS_DEFAULT))-log2(0.18);
     TsParams PARAMS = init_TsParams( Y_MIN, Y_MAX, expShift);
@@ -71,23 +83,44 @@ float[3] outputTransform
 
     // At this point data encoded AP1, scaled absolute luminance (cd/m^2)
 
-    // Scale to linear code value
-//     if (EOTF != 0) {  // ST-2084 (PQ)
-//         rgbPost = Y_2_linCV_f3( rgbPost, Y_MAX, Y_MIN);
-//     }
+    /*  Scale absolute luminance to linear code value  */
     float linearCV[3] = Y_2_linCV_f3( rgbPost, Y_MAX, Y_MIN);
     
     // Rendering primaries to XYZ
     float XYZ[3] = mult_f3_f44( linearCV, AP1_2_XYZ_MAT);
 
     // Apply gamma adjustment to compensate for dim surround
-    // NOTE: This section would only apply for SDR. This is a placeholder block.
-    // TOD0: Come up with new surround compensation algorithm, applicable across
-    // all dynamic ranges and supporting dark/dim/normal surround.
-//     if (SURROUND == 1) {
-//         print( "\nDim surround\n");
-//         XYZ = dark_to_dim( XYZ);
-//     }
+    /*  
+        NOTE: This is more or less a placeholder block and is largely inactive 
+        in its current form. This section currently only applies for SDR, and
+        even then, only in very specific cases.
+        In the future it is fully intended for this module to be updated to 
+        support surround compensation regardless of luminance dynamic range. */
+    /*  
+        TOD0: Come up with new surround compensation algorithm, applicable 
+        across all dynamic ranges and supporting dark/dim/normal surround.  
+    */
+    if (SURROUND == 0) { // Dark surround
+        /*  
+        Current tone scale is designed for dark surround environment so no 
+        adjustment is necessary. 
+        */
+    } else if (SURROUND == 1) { // Dim surround
+        // INACTIVE for HDR and crudely implemented for SDR (see comment below)        
+        if ((EOTF == 1) || (EOTF == 2) || (EOTF == 3)) { 
+            /* 
+            This uses a crude logical assumption that if the EOTF is BT.1886,
+            sRGB, or gamma 2.6 that the data is SDR and so the SDR gamma
+            compensation factor from v1.0 will apply. 
+            */
+            XYZ = dark_to_dim( XYZ); /*
+            This uses a local dark_to_dim function that is designed to take in
+            XYZ and return XYZ rather than AP1 as is currently in the functions
+            in 'ACESlib.ODT_Common.ctl' */
+        }
+    } else if (SURROUND == 2) { // Normal surround
+        // INACTIVE - this does NOTHING
+    }
 
     // Gamut limit to limiting primaries
     // NOTE: Would be nice to just say
@@ -176,7 +209,11 @@ float[3] outputTransform
         else {
             outputCV = Y_2_ST2084_f3( linCV_2_Y_f3(linearCV, Y_MAX, Y_MIN) );        
         }
-        outputCV = ST2084_2_HLG_1000nits( outputCV);
+        outputCV = ST2084_2_HLG_1000nits_f3( outputCV);
+    }
+
+    if (LEGAL_RANGE == true) {
+        outputCV = fullRange_to_smpteRange_f3( outputCV);
     }
 
     return outputCV;    
@@ -199,13 +236,20 @@ float[3] invOutputTransform
 {
     float DISPLAY_PRI_2_XYZ_MAT[4][4] = RGBtoXYZ( DISPLAY_PRI, 1.0);
 
-    // NOTE: This is a bit of a hack - probably a more direct way to do this.
-    // Update in accordance with forward algorithm.
+    /* 
+        NOTE: This is a bit of a hack - probably a more direct way to do this.
+        TODO: Update in accordance with forward algorithm.
+    */
     TsParams PARAMS_DEFAULT = init_TsParams( Y_MIN, Y_MAX);
     float expShift = log2(inv_ssts(Y_MID, PARAMS_DEFAULT))-log2(0.18);
     TsParams PARAMS = init_TsParams( Y_MIN, Y_MAX, expShift);
 
     float outputCV[3] = in;
+
+    if (LEGAL_RANGE == true) {
+        outputCV = smpteRange_to_fullRange_f3( outputCV);
+    }
+
     // Inverse EOTF
     // 0: ST-2084 (PQ)
     // 1: BT.1886 (Rec.709/2020 settings)
@@ -230,7 +274,7 @@ float[3] invOutputTransform
     } else if (EOTF == 4) { // linear
         linearCV = Y_2_linCV_f3( outputCV, Y_MAX, Y_MIN);
     } else if (EOTF == 5) { // HLG
-        outputCV = HLG_2_ST2084_1000nits( outputCV);
+        outputCV = HLG_2_ST2084_1000nits_f3( outputCV);
         if (STRETCH_BLACK == true) {
             linearCV = Y_2_linCV_f3( ST2084_2_Y_f3( outputCV), Y_MAX, 0.);
         } else {
@@ -274,10 +318,37 @@ float[3] invOutputTransform
     }
 
     // Apply gamma adjustment to compensate for dim surround
-//     if (SURROUND == 1) {
-//         print( "\nDim surround\n");
-//         XYZ = dim_to_dark( XYZ);
-//     }
+    /*  
+        NOTE: This is more or less a placeholder block and is largely inactive 
+        in its current form. This section currently only applies for SDR, and
+        even then, only in very specific cases.
+        In the future it is fully intended for this module to be updated to 
+        support surround compensation regardless of luminance dynamic range. */
+    /*  
+        TOD0: Come up with new surround compensation algorithm, applicable 
+        across all dynamic ranges and supporting dark/dim/normal surround.  
+    */
+    if (SURROUND == 0) { // Dark surround
+        /*  
+        Current tone scale is designed for dark surround environment so no 
+        adjustment is necessary. 
+        */
+    } else if (SURROUND == 1) { // Dim surround
+        // INACTIVE for HDR and crudely implemented for SDR (see comment below)        
+        if ((EOTF == 1) || (EOTF == 2) || (EOTF == 3)) { 
+            /* 
+            This uses a crude logical assumption that if the EOTF is BT.1886,
+            sRGB, or gamma 2.6 that the data is SDR and so the SDR gamma
+            compensation factor from v1.0 will apply. 
+            */
+            XYZ = dim_to_dark( XYZ); /*
+            This uses a local dim_to_dark function that is designed to take in
+            XYZ and return XYZ rather than AP1 as is currently in the functions
+            in 'ACESlib.ODT_Common.ctl' */
+        }
+    } else if (SURROUND == 2) { // Normal surround
+        // INACTIVE - this does NOTHING
+    }
 
     // XYZ to rendering primaries
     linearCV = mult_f3_f44( XYZ, XYZ_2_AP1_MAT);

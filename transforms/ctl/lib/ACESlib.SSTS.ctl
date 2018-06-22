@@ -1,3 +1,12 @@
+
+// <ACEStransformID>ACESlib.SSTS.a1.1</ACEStransformID>
+// <ACESuserName>ACES 1.0 Lib - SSTS</ACESuserName>
+
+//
+// Contains functions used for forward and inverse tone scale 
+//
+
+
 // Textbook monomial to basis-function conversion matrix.
 const float M1[ 3][ 3] = {
   {  0.5, -1.0, 0.5 },
